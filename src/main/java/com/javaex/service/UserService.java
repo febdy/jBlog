@@ -15,11 +15,9 @@ public class UserService {
 	public void join(UserVo userVo) {
 		userDao.join(userVo);
 	}
-<<<<<<< HEAD
 
 	public UserVo login(String id, String password) {
 		return userDao.login(id, password);
 	}
-=======
->>>>>>> 8a3360a9c7f5d24f2163034f0dfcfd97fa13969d
+
 }

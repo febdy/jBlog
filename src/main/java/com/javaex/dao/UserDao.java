@@ -1,11 +1,8 @@
 package com.javaex.dao;
 
-<<<<<<< HEAD
 import java.util.HashMap;
 import java.util.Map;
 
-=======
->>>>>>> 8a3360a9c7f5d24f2163034f0dfcfd97fa13969d
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -22,7 +19,6 @@ public class UserDao {
 		sqlSession.insert("users.join", userVo);
 	}
 
-<<<<<<< HEAD
 	public UserVo login(String id, String password) {
 		Map<String, String> map = new HashMap<>();
 		map.put("id", id);
@@ -31,6 +27,4 @@ public class UserDao {
 		return sqlSession.selectOne("users.login", map);
 	}
 
-=======
->>>>>>> 8a3360a9c7f5d24f2163034f0dfcfd97fa13969d
 }

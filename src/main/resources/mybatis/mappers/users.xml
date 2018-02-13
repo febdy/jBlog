@@ -9,7 +9,6 @@
 		VALUES (seq_users_no.nextval, #{id}, #{userName}, #{password}, sysdate)
 	]]>
 	</insert>
-<<<<<<< HEAD
 	
 	<select id="login" parameterType="map" resultType="com.javaex.vo.UserVo">
 	<![CDATA[
@@ -18,7 +17,5 @@
 		WHERE id = #{id} AND password = #{password}
 	]]>
 	</select>
-=======
->>>>>>> 8a3360a9c7f5d24f2163034f0dfcfd97fa13969d
 
 </mapper>

@@ -1,18 +1,12 @@
 package com.javaex.controller;
 
-<<<<<<< HEAD
 import javax.servlet.http.HttpSession;
 
-=======
->>>>>>> 8a3360a9c7f5d24f2163034f0dfcfd97fa13969d
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-<<<<<<< HEAD
 import org.springframework.web.bind.annotation.RequestParam;
-=======
->>>>>>> 8a3360a9c7f5d24f2163034f0dfcfd97fa13969d
 
 import com.javaex.service.UserService;
 import com.javaex.vo.UserVo;
@@ -36,7 +30,6 @@ public class UserController {
 
 		return "user/joinSuccess";
 	}
-<<<<<<< HEAD
 
 	@RequestMapping("/loginform")
 	public String loginform() {
@@ -58,7 +51,5 @@ public class UserController {
 
 		return "redirect:/main";
 	}
-=======
-	
->>>>>>> 8a3360a9c7f5d24f2163034f0dfcfd97fa13969d
+
 }
