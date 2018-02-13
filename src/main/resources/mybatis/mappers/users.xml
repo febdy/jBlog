@@ -9,5 +9,13 @@
 		VALUES (seq_users_no.nextval, #{id}, #{userName}, #{password}, sysdate)
 	]]>
 	</insert>
+	
+	<select id="login" parameterType="map" resultType="com.javaex.vo.UserVo">
+	<![CDATA[
+		SELECT userNo, userName
+		FROM users
+		WHERE id = #{id} AND password = #{password}
+	]]>
+	</select>
 
 </mapper>

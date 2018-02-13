@@ -15,4 +15,8 @@ public class UserService {
 	public void join(UserVo userVo) {
 		userDao.join(userVo);
 	}
+
+	public UserVo login(String id, String password) {
+		return userDao.login(id, password);
+	}
 }
