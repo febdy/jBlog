@@ -3,10 +3,23 @@
 
 <mapper namespace="blog-admin">
 
+	<select id="get_basic" parameterType="int" resultType="com.javaex.vo.BlogVo">
+	<![CDATA[
+		SELECT userNo, blogTitle, logoFile
+		FROM blog
+		WHERE userNo = #{userNo}
+	]]>
+	</select>
+
 	<update id="basic_update" parameterType="com.javaex.vo.BlogVo">
 	<![CDATA[
 		UPDATE blog
-		SET blogTitle = #{blogTitle}, logoFile = #{logoFile}
+		SET blogTitle = #{blogTitle}
+	]]>
+		<if test="logoFile != null and logoFile != '' ">
+			, logoFile = #{logoFile}
+		</if>
+	<![CDATA[
 		WHERE userNo = #{userNo}
 	]]>
 	</update>

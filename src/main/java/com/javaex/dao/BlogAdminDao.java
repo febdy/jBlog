@@ -12,6 +12,10 @@ public class BlogAdminDao {
 	@Autowired
 	SqlSession sqlSession;
 
+	public BlogVo getAdminBasic(int userNo) {
+		return sqlSession.selectOne("blog-admin.get_basic", userNo);
+	}
+	
 	public void adminBasicUpdate(BlogVo blogVo) {
 		sqlSession.update("blog-admin.basic_update", blogVo);
 	}
