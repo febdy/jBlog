@@ -41,6 +41,7 @@ public class UserController {
 	public String login(@RequestParam String id, @RequestParam String password, HttpSession session) {
 		UserVo authUser = userService.login(id, password);
 		session.setAttribute("authUser", authUser);
+		System.out.println("Login :: " + authUser.toString());
 
 		return "redirect:/main";
 	}
