@@ -6,5 +6,6 @@
 
 	<mappers>
 		<mapper resource="mybatis/mappers/users.xml" />
+		<mapper resource="mybatis/mappers/blog-admin.xml" />
 	</mappers>
 </configuration>

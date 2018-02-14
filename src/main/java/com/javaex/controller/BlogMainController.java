@@ -5,11 +5,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-public class BlogController {
+public class BlogMainController {
 
 	@RequestMapping("/{userId}")
-	public String blog(@PathVariable String userId) {
+	public String blogMain(@PathVariable String userId) {
 
 		return "blog/blog-main";
 	}
+
 }
