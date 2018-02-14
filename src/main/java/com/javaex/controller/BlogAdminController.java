@@ -45,7 +45,7 @@ public class BlogAdminController {
 		
 		blogAdminService.adminBasicUpdate(blogVo, logoFile);
 		
-		return "redirect:/blog/admin/basic";
+		return "redirect:/" + userId + "/admin/basic";
 	}
 	
 	@RequestMapping("/category")

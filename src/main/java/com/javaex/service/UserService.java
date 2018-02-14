@@ -2,7 +2,9 @@ package com.javaex.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.javaex.dao.BlogAdminDao;
 import com.javaex.dao.UserDao;
 import com.javaex.vo.UserVo;
 
@@ -11,9 +13,16 @@ public class UserService {
 
 	@Autowired
 	UserDao userDao;
+	@Autowired
+	BlogAdminDao blogAdminDao;
 
+	@Transactional
 	public void join(UserVo userVo) {
 		userDao.join(userVo);
+		int userNo = userVo.getUserNo();
+
+		blogAdminDao.setAdminBasic(userNo);
+		blogAdminDao.setCategory(userNo);
 	}
 
 	public UserVo login(String id, String password) {

@@ -33,7 +33,7 @@
 			      				<td><img src="/jblog/assets/images/spring-logo.jpg"></td>
 			      			</c:if>
 			      			<c:if test="${not empty blogVo.logoFile}">
-				      			<td><img src="${pageContext.request.contextPath}/upload/${blogVo.logoFile}" style="width:150px"></td>
+				      			<td><img src="${pageContext.request.contextPath}/upload/${blogVo.logoFile}"></td>
 				      		</c:if>
 			      		</tr>      		
 			      		<tr>

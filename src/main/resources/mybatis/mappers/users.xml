@@ -4,9 +4,13 @@
 <mapper namespace="users">
 
 	<insert id="join" parameterType="com.javaex.vo.UserVo">
+		<selectKey keyProperty="userNo" resultType="int" order="BEFORE">
+			SELECT
+			seq_users_no.nextval FROM dual
+		</selectKey>
 	<![CDATA[
 		INSERT INTO users
-		VALUES (seq_users_no.nextval, #{id}, #{userName}, #{password}, sysdate)
+		VALUES (#{userNo}, #{userId}, #{userName}, #{password}, sysdate)
 	]]>
 	</insert>
 	

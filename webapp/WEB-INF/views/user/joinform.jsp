@@ -18,7 +18,7 @@
 			<input type="text" name="userName"  value="" />
 			
 			<label class="block-label" for="id">아이디</label>
-			<input type="text" name="id"  value="" />
+			<input type="text" name="userId"  value="" />
 			<input id="btn-checkid" type="button" value="id 중복체크">
 			<img id="img-checkid" style="display: none;" src="${pageContext.request.contextPath}/assets/images/check.png">
 			<p class="form-error">

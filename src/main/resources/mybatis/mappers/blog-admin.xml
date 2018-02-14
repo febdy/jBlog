@@ -3,6 +3,13 @@
 
 <mapper namespace="blog-admin">
 
+	<insert id="set_basic" parameterType="int">
+	<![CDATA[
+		INSERT INTO blog (userNo, blogTitle)
+		VALUES (#{userNo}, 'Default_Title')
+	]]>
+	</insert>
+	
 	<select id="get_basic" parameterType="int" resultType="com.javaex.vo.BlogVo">
 	<![CDATA[
 		SELECT userNo, blogTitle, logoFile
@@ -23,5 +30,12 @@
 		WHERE userNo = #{userNo}
 	]]>
 	</update>
+	
+	<insert id="set_category" parameterType="int">
+	<![CDATA[
+		INSERT INTO category
+		VALUES (seq_category_no.nextval, #{userNo}, '미분류', '', sysdate)
+	]]>
+	</insert>
 
 </mapper>
