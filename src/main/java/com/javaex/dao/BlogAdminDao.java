@@ -16,22 +16,30 @@ public class BlogAdminDao {
 	SqlSession sqlSession;
 
 	public void setAdminBasic(int userNo) {
-		sqlSession.insert("blog-admin.set_basic", userNo);
+		sqlSession.insert("blog-admin.setBasic", userNo);
 	}
-	
+
 	public BlogVo getAdminBasic(int userNo) {
-		return sqlSession.selectOne("blog-admin.get_basic", userNo);
+		return sqlSession.selectOne("blog-admin.getBasic", userNo);
 	}
-	
+
 	public void adminBasicUpdate(BlogVo blogVo) {
-		sqlSession.update("blog-admin.basic_update", blogVo);
+		sqlSession.update("blog-admin.basicUpdate", blogVo);
 	}
-	
+
 	public void setCategory(int userNo) {
-		sqlSession.insert("blog-admin.set_category", userNo);
+		sqlSession.insert("blog-admin.setCategory", userNo);
 	}
 
 	public List<CategoryVo> getCateList(int userNo) {
-		return sqlSession.selectList("blog-admin.get_cateList", userNo);
+		return sqlSession.selectList("blog-admin.getCateList", userNo);
+	}
+
+	public void addCategory(CategoryVo categoryVo) {
+		sqlSession.insert("blog-admin.addCategory", categoryVo);
+	}
+
+	public int getCateCnt(int userNo) {
+		return sqlSession.selectOne("blog-admin.getCateCnt", userNo);
 	}
 }

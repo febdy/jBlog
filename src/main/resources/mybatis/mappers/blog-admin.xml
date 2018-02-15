@@ -3,14 +3,16 @@
 
 <mapper namespace="blog-admin">
 
-	<insert id="set_basic" parameterType="int">
+	<!-- *** BASIC *** -->
+
+	<insert id="setBasic" parameterType="int">
 	<![CDATA[
 		INSERT INTO blog (userNo, blogTitle)
 		VALUES (#{userNo}, 'Default_Title')
 	]]>
 	</insert>
 	
-	<select id="get_basic" parameterType="int" resultType="com.javaex.vo.BlogVo">
+	<select id="getBasic" parameterType="int" resultType="com.javaex.vo.BlogVo">
 	<![CDATA[
 		SELECT userNo, blogTitle, logoFile
 		FROM blog
@@ -18,7 +20,7 @@
 	]]>
 	</select>
 
-	<update id="basic_update" parameterType="com.javaex.vo.BlogVo">
+	<update id="basicUpdate" parameterType="com.javaex.vo.BlogVo">
 	<![CDATA[
 		UPDATE blog
 		SET blogTitle = #{blogTitle}
@@ -31,19 +33,42 @@
 	]]>
 	</update>
 	
-	<insert id="set_category" parameterType="int">
+	
+	<!-- *** CATEGORY *** -->
+	
+	<insert id="setCategory" parameterType="int">
 	<![CDATA[
 		INSERT INTO category
 		VALUES (seq_category_no.nextval, #{userNo}, '미분류', '', sysdate)
 	]]>
 	</insert>
 	
-	<select id="get_cateList" parameterType="int" resultType="com.javaex.vo.CategoryVo">
+	<select id="getCateList" parameterType="int" resultType="com.javaex.vo.CategoryVo">
 	<![CDATA[
 		SELECT cateNo, userNo, cateName, description, regDate
 		FROM category
 		WHERE userNo = #{userNo}
+		ORDER BY cateNo DESC
 	]]>
 	</select>
 
+	<insert id="addCategory" parameterType="com.javaex.vo.CategoryVo">
+	<selectKey keyProperty="cateNo" resultType="int" order="BEFORE">
+		SELECT seq_category_no.nextval
+		FROM dual
+	</selectKey>
+	<![CDATA[
+		INSERT INTO category
+		VALUES (#{cateNo}, #{userNo}, #{cateName}, #{description}, sysdate)
+	]]>
+	</insert>
+	
+	<select id="getCateCnt" parameterType="int" resultType="int">
+	<![CDATA[
+		SELECT count(cateNo)
+		FROM category
+		WHERE userNo = #{userNo}
+	]]>
+	</select>
+	
 </mapper>
