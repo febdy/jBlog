@@ -15,6 +15,7 @@ public class BlogAdminDao {
 	@Autowired
 	SqlSession sqlSession;
 
+	// ADMIN BASIC
 	public void setAdminBasic(int userNo) {
 		sqlSession.insert("blog-admin.setBasic", userNo);
 	}
@@ -27,6 +28,7 @@ public class BlogAdminDao {
 		sqlSession.update("blog-admin.basicUpdate", blogVo);
 	}
 
+	// CATEGORY
 	public void setCategory(int userNo) {
 		sqlSession.insert("blog-admin.setCategory", userNo);
 	}
@@ -41,5 +43,9 @@ public class BlogAdminDao {
 
 	public int getCateCnt(int userNo) {
 		return sqlSession.selectOne("blog-admin.getCateCnt", userNo);
+	}
+
+	public int deleteCategory(int cateNo) {
+		return sqlSession.delete("blog-admin.deleteCategory", cateNo);
 	}
 }
