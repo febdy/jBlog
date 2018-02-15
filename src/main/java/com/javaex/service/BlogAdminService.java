@@ -4,6 +4,7 @@ import java.io.BufferedOutputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.javaex.dao.BlogAdminDao;
 import com.javaex.vo.BlogVo;
+import com.javaex.vo.CategoryVo;
 
 @Service
 public class BlogAdminService {
@@ -51,5 +53,9 @@ public class BlogAdminService {
 		}
 
 		blogAdminDao.adminBasicUpdate(blogVo);
+	}
+	
+	public List<CategoryVo> getCateList(int userNo) {
+		return blogAdminDao.getCateList(userNo);
 	}
 }

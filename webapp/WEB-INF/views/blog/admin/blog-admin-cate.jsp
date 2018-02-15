@@ -5,6 +5,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/jquery/jquery-1.12.4.js"></script>
+	
 <title>JBlog</title>
 <link rel="stylesheet" href="/jblog/assets/css/jblog.css">
 </head>
@@ -19,35 +21,8 @@
 			
 				<c:import url="/WEB-INF/views/includes/admin-menu.jsp" />
 				
-		      	<table class="admin-cat">
-		      		<tr>
-		      			<th>번호</th>
-		      			<th>카테고리명</th>
-		      			<th>포스트 수</th>
-		      			<th>설명</th>
-		      			<th>삭제</th>      			
-		      		</tr>
-					<tr>
-						<td>3</td>
-						<td>미분류</td>
-						<td>10</td>
-						<td>카테고리를 지정하지 않은 경우</td>
-						<td><img src="${pageContext.request.contextPath}/assets/images/delete.jpg"></td>
-					</tr>  
-					<tr>
-						<td>2</td>
-						<td>스프링 스터디</td>
-						<td>20</td>
-						<td>어쩌구 저쩌구</td>
-						<td><img src="${pageContext.request.contextPath}/assets/images/delete.jpg"></td>
-					</tr>
-					<tr>
-						<td>1</td>
-						<td>스프링 프로젝트</td>
-						<td>15</td>
-						<td>어쩌구 저쩌구</td>
-						<td><img src="${pageContext.request.contextPath}/assets/images/delete.jpg"></td>
-					</tr>					  
+		      	<table class="admin-cat" id="admin-cat">
+
 				</table>
       	
       			<h4 class="n-c">새로운 카테고리 추가</h4>
@@ -72,4 +47,63 @@
 		
 	</div>
 </body>
+<script type="text/javascript">
+	
+	$(document).ready(function(){
+		var userNo = ${authUser.userNo};
+		fetchTable();
+		fetchList(userNo);
+	});
+	
+	function fetchList(userNo){
+		$.ajax({
+			url : "${pageContext.request.contextPath}/${authUser.userId}/api/admin/category",
+			type : "post",
+			data : {userNo : userNo},
+			dataType : "json",
+			success : function(cList){
+				console.log("?");
+				for(var i = 0; i < cList.length; i++) {
+					render(cList[i], "down");
+				}
+			},
+			error : function(XHR, status, error) {
+				console.error(status + " : " + error);
+			}
+		});
+	}
+	
+	function fetchTable(){
+		var str="";
+		str += "<tr>";
+		str += "	<th>번호</th>";
+		str += "	<th>카테고리명</th>";
+		str += "	<th>포스트 수</th>";
+		str += "	<th>설명</th>";
+		str += "	<th>삭제</th>";
+		str += "</tr>";
+		
+		$(".admin-cat").append(str);
+	}
+	
+	function render(categoryVo, updown){
+		var str="";
+		str += "<tr>";
+		str += "	<th>"+categoryVo.cateNo+"</th>";
+		str += "	<th>"+categoryVo.cateName+"</th>";
+		str += "	<th>"+"포스트 수"+"</th>";
+		str += "	<th>"+categoryVo.description+"</th>";
+		str += "	<th><img src=\"${pageContext.request.contextPath}/assets/images/delete.jpg\"></th>";
+		str += "</tr>";
+		
+		if(updown == "up")
+			$(".admin-cat").prepend(str);
+		else if(updown == "down")
+			$(".admin-cat").append(str);
+		else
+			console.log("updown 오류");
+	}
+	
+</script>
+
 </html>
