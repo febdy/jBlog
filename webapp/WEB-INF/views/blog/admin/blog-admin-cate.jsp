@@ -21,10 +21,16 @@
 			
 				<c:import url="/WEB-INF/views/includes/admin-menu.jsp" />
 				
-		      	<table class="admin-cat" id="admin-cat">
-
+		      	<table class="admin-cat">
+			      	<tr id="bar">
+						<th>번호</th>
+						<th>카테고리명</th>
+						<th>포스트 수</th>
+						<th>설명</th>
+						<th>삭제</th>
+					</tr>
 				</table>
-      	
+
       			<h4 class="n-c">새로운 카테고리 추가</h4>
 		      	<table id="admin-cat-add">
 		      		<tr>
@@ -51,19 +57,18 @@
 	
 	$(document).ready(function(){
 		var userNo = ${authUser.userNo};
-		fetchTable();
 		fetchList(userNo);
 	});
 	
-	function fetchList(userNo){
+	function fetchList(userNo){ // getList
 		$.ajax({
 			url : "${pageContext.request.contextPath}/${authUser.userId}/api/admin/category",
 			type : "post",
 			data : {userNo : userNo},
 			dataType : "json",
 			success : function(cList){
-				console.log("?");
 				for(var i = 0; i < cList.length; i++) {
+					cList[i].cateNo = cList.length - i;
 					render(cList[i], "down");
 				}
 			},
@@ -71,19 +76,6 @@
 				console.error(status + " : " + error);
 			}
 		});
-	}
-	
-	function fetchTable(){
-		var str="";
-		str += "<tr>";
-		str += "	<th>번호</th>";
-		str += "	<th>카테고리명</th>";
-		str += "	<th>포스트 수</th>";
-		str += "	<th>설명</th>";
-		str += "	<th>삭제</th>";
-		str += "</tr>";
-		
-		$(".admin-cat").append(str);
 	}
 	
 	function render(categoryVo, updown){
@@ -97,12 +89,37 @@
 		str += "</tr>";
 		
 		if(updown == "up")
-			$(".admin-cat").prepend(str);
+			$(str).insertAfter("#bar");
 		else if(updown == "down")
 			$(".admin-cat").append(str);
 		else
 			console.log("updown 오류");
 	}
+	
+	$("input[type=submit]").on("click", function(){ // add category	
+		var categoryVo = {
+				'userNo' : ${authUser.userNo},
+				'cateName' : $("[name=name]").val(),
+				'description' : $("[name=desc]").val()
+		}
+		
+		$.ajax({
+			url : "${pageContext.request.contextPath}/${authUser.userId}/api/admin/categoryAdd",
+			type : "post",
+			data : JSON.stringify(categoryVo),
+			contentType : "application/json; charset=UTF-8",
+
+			dataType : "json",
+			success : function(categoryVo){
+				render(categoryVo, "up");
+				$("[name=name]").val("");
+				$("[name=desc]").val("");
+			},
+			error : function(XHR, status, error) {
+				console.error(status + " : " + error);
+			}
+		});
+	});
 	
 </script>
 
