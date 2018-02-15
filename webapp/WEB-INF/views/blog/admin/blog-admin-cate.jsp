@@ -68,8 +68,8 @@
 			dataType : "json",
 			success : function(cList){
 				for(var i = 0; i < cList.length; i++) {
-					cList[i].cateNo = cList.length - i;
-					render(cList[i], "down");
+					var num = cList.length - i;
+					render(cList[i], num, "down");
 				}
 			},
 			error : function(XHR, status, error) {
@@ -78,14 +78,14 @@
 		});
 	}
 	
-	function render(categoryVo, updown){
+	function render(categoryVo, num, updown){
 		var str="";
-		str += "<tr>";
-		str += "	<th>"+categoryVo.cateNo+"</th>";
+		str += "<tr id=\"tr"+categoryVo.cateNo+"\">";
+		str += "	<th>"+num+"</th>";
 		str += "	<th>"+categoryVo.cateName+"</th>";
 		str += "	<th>"+"포스트 수"+"</th>";
 		str += "	<th>"+categoryVo.description+"</th>";
-		str += "	<th><img src=\"${pageContext.request.contextPath}/assets/images/delete.jpg\"></th>";
+		str += "	<th><img src=\"${pageContext.request.contextPath}/assets/images/delete.jpg\" class=\"delete\" id=\""+categoryVo.cateNo+"\"></th>";
 		str += "</tr>";
 		
 		if(updown == "up")
@@ -104,14 +104,14 @@
 		}
 		
 		$.ajax({
-			url : "${pageContext.request.contextPath}/${authUser.userId}/api/admin/categoryAdd",
+			url : "${pageContext.request.contextPath}/${authUser.userId}/api/admin/addCategory",
 			type : "post",
 			data : JSON.stringify(categoryVo),
 			contentType : "application/json; charset=UTF-8",
 
 			dataType : "json",
-			success : function(categoryVo){
-				render(categoryVo, "up");
+			success : function(map){
+				render(map.categoryVo, map.cnt, "up");
 				$("[name=name]").val("");
 				$("[name=desc]").val("");
 			},
@@ -120,6 +120,28 @@
 			}
 		});
 	});
+	
+	$(".admin-cat").on("click", ".delete", function(){ // delete category
+	
+		var idNum = this.id;
+		
+		$.ajax({
+			url : "${pageContext.request.contextPath}/${authUser.userId}/api/admin/deleteCategory",
+			type : "post",
+			data : {cateNo : idNum},
+			//contentType : "application/json; charset=UTF-8",
+
+			dataType : "json",
+			success : function(result){
+				if(result==1){
+					$("#tr"+idNum).remove();
+				};
+			},
+			error : function(XHR, status, error) {
+				console.error(status + " : " + error);
+			}
+		});
+	});	
 	
 </script>
 

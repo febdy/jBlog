@@ -4,7 +4,9 @@ import java.io.BufferedOutputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,8 +61,17 @@ public class BlogAdminService {
 		return blogAdminDao.getCateList(userNo);
 	}
 
-	public void addCategory(CategoryVo categoryVo) {
+	public Map<String, Object> addCategory(CategoryVo categoryVo) {
 		blogAdminDao.addCategory(categoryVo);
-		categoryVo.setCateNo(blogAdminDao.getCateCnt(categoryVo.getUserNo()));
+
+		Map<String, Object> map = new HashMap<>();
+		map.put("categoryVo", categoryVo);
+		map.put("cnt", blogAdminDao.getCateCnt(categoryVo.getUserNo()));
+
+		return map;
+	}
+
+	public int deleteCategory(int cateNo) {
+		return blogAdminDao.deleteCategory(cateNo);
 	}
 }

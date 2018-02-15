@@ -1,6 +1,7 @@
 package com.javaex.api.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,17 +24,22 @@ public class ApiBlogAdminController {
 
 	@ResponseBody
 	@RequestMapping(value = "/category", method = RequestMethod.POST)
-	public List<CategoryVo> apiCateList(@PathVariable String userId, @RequestParam int userNo) {
+	public List<CategoryVo> apiGetCateList(@PathVariable String userId, @RequestParam int userNo) {
 
 		return blogAdminService.getCateList(userNo);
 	}
 
 	@ResponseBody
-	@RequestMapping(value = "/categoryAdd", method = RequestMethod.POST)
-	public CategoryVo apiCateAdd(@PathVariable String userId, @RequestBody CategoryVo categoryVo) {
-		blogAdminService.addCategory(categoryVo);
+	@RequestMapping(value = "/addCategory", method = RequestMethod.POST)
+	public Map<String, Object> apiAddCategory(@PathVariable String userId, @RequestBody CategoryVo categoryVo) {
 
-		return categoryVo;
+		return blogAdminService.addCategory(categoryVo);
 	}
 
+	@ResponseBody
+	@RequestMapping(value = "/deleteCategory", method = RequestMethod.POST)
+	public int apiDeleteCategory(@PathVariable String userId, @RequestParam int cateNo) {
+
+		return blogAdminService.deleteCategory(cateNo);
+	}
 }
