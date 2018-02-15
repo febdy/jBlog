@@ -37,5 +37,13 @@
 		VALUES (seq_category_no.nextval, #{userNo}, '미분류', '', sysdate)
 	]]>
 	</insert>
+	
+	<select id="get_cateList" parameterType="int" resultType="com.javaex.vo.CategoryVo">
+	<![CDATA[
+		SELECT cateNo, userNo, cateName, description, regDate
+		FROM category
+		WHERE userNo = #{userNo}
+	]]>
+	</select>
 
 </mapper>

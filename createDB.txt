@@ -1,0 +1,60 @@
+create table users(
+    userNo number primary key,
+    id varchar2(50) not null unique,
+    userName varchar2(100) not null,
+    password varchar2(50) not null,
+    joinDate date not null
+);
+
+create table blog(
+    userNo number primary key,
+    blogTitle varchar2(200) not null,
+    logoFile varchar2(200),
+    constraint f_userNo foreign key (userNo)
+    references users(userNo)
+);
+
+create table category(
+    cateNo number primary key,
+    userNo number,
+    cateName varchar2(200) not null,
+    description varchar2(500),
+    regDate date not null,
+    constraint f_userNo2 foreign key (userNo)
+    references blog(userNo)
+);
+
+create table post(
+    postNo number primary key,
+    cateNo number,
+    postTitle varchar2(300) not null,
+    postContent varchar2(4000),
+    regDate date not null,
+    constraint f_cateNo foreign key (cateNo)
+    references category(cateNo)
+);
+
+create table comments(
+    cmtNo number primary key,
+    postNo number,
+    cmtContent varchar2(1000) not null,
+    regDate date not null,
+    constraint f_postNo foreign key (postNo)
+    references post(postNo)
+);
+
+create sequence seq_users_no
+increment by 1
+start with 1;
+
+create sequence seq_category_no
+increment by 1
+start with 1;
+
+create sequence seq_post_no
+increment by 1
+start with 1;
+
+create sequence seq_comments_no
+increment by 1
+start with 1;
