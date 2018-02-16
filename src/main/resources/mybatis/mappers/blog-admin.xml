@@ -77,7 +77,7 @@
 		WHERE cateNo = #{cateNo}
 	]]>
 	</delete>
-	
+
 	
 	<!-- *** WRITE *** -->
 	
@@ -87,5 +87,5 @@
 		VALUES (seq_post_no.nextval, #{cateNo}, #{postTitle}, #{postContent}, sysdate)
 	]]>
 	</insert>
-	
+  
 </mapper>
