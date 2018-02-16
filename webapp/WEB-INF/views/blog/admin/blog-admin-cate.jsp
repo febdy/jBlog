@@ -62,7 +62,7 @@
 	
 	function fetchList(userNo){ // getList
 		$.ajax({
-			url : "${pageContext.request.contextPath}/${authUser.userId}/api/admin/category",
+			url : "${pageContext.request.contextPath}/${authUser.userId}/api/admin/getCategory",
 			type : "post",
 			data : {userNo : userNo},
 			dataType : "json",

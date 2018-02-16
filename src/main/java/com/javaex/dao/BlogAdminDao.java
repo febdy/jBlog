@@ -8,6 +8,8 @@ import org.springframework.stereotype.Repository;
 
 import com.javaex.vo.BlogVo;
 import com.javaex.vo.CategoryVo;
+import com.javaex.vo.PostVo;
+
 
 @Repository
 public class BlogAdminDao {
@@ -35,6 +37,22 @@ public class BlogAdminDao {
 
 	public List<CategoryVo> getCateList(int userNo) {
 		return sqlSession.selectList("blog-admin.getCateList", userNo);
+	}
+
+	public void addCategory(CategoryVo categoryVo) {
+		sqlSession.insert("blog-admin.addCategory", categoryVo);
+	}
+
+	public int getCateCnt(int userNo) {
+		return sqlSession.selectOne("blog-admin.getCateCnt", userNo);
+	}
+
+	public int deleteCategory(int cateNo) {
+		return sqlSession.delete("blog-admin.deleteCategory", cateNo);
+	}
+
+	public void write(PostVo postVo) {
+		sqlSession.insert("blog-admin.write", postVo);
 	}
 
 	public void addCategory(CategoryVo categoryVo) {

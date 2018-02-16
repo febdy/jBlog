@@ -77,5 +77,15 @@
 		WHERE cateNo = #{cateNo}
 	]]>
 	</delete>
+
 	
+	<!-- *** WRITE *** -->
+	
+	<insert id="write" parameterType="com.javaex.vo.PostVo">
+	<![CDATA[
+		INSERT INTO post
+		VALUES (seq_post_no.nextval, #{cateNo}, #{postTitle}, #{postContent}, sysdate)
+	]]>
+	</insert>
+  
 </mapper>

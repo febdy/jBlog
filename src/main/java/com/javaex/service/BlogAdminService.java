@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.javaex.dao.BlogAdminDao;
 import com.javaex.vo.BlogVo;
 import com.javaex.vo.CategoryVo;
+import com.javaex.vo.PostVo;
 
 @Service
 public class BlogAdminService {
@@ -74,4 +75,9 @@ public class BlogAdminService {
 	public int deleteCategory(int cateNo) {
 		return blogAdminDao.deleteCategory(cateNo);
 	}
+
+	public void write(PostVo postVo) {
+		blogAdminDao.write(postVo);
+	}
+
 }
