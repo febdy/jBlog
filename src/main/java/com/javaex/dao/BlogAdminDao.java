@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.javaex.vo.BlogVo;
 import com.javaex.vo.CategoryVo;
+import com.javaex.vo.PostVo;
 
 @Repository
 public class BlogAdminDao {
@@ -48,4 +49,9 @@ public class BlogAdminDao {
 	public int deleteCategory(int cateNo) {
 		return sqlSession.delete("blog-admin.deleteCategory", cateNo);
 	}
+
+	public void write(PostVo postVo) {
+		sqlSession.insert("blog-admin.write", postVo);
+	}
+
 }

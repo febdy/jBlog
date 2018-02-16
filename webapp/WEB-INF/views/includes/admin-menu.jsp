@@ -7,5 +7,5 @@
 	<li><a
 		href="${pageContext.request.contextPath}/${authUser.userId}/admin/category">카테고리</a></li>
 	<li><a
-		href="${pageContext.request.contextPath}/${authUser.userId}/admin/write">글작성</a></li>
+		href="${pageContext.request.contextPath}/${authUser.userId}/admin/writeform">글작성</a></li>
 </ul>

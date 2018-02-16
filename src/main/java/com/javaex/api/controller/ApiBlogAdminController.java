@@ -23,7 +23,7 @@ public class ApiBlogAdminController {
 	BlogAdminService blogAdminService;
 
 	@ResponseBody
-	@RequestMapping(value = "/category", method = RequestMethod.POST)
+	@RequestMapping(value = "/getCategory", method = RequestMethod.POST)
 	public List<CategoryVo> apiGetCateList(@PathVariable String userId, @RequestParam int userNo) {
 
 		return blogAdminService.getCateList(userNo);
