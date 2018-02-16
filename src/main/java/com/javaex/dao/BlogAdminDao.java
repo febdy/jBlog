@@ -51,19 +51,9 @@ public class BlogAdminDao {
 		return sqlSession.delete("blog-admin.deleteCategory", cateNo);
 	}
 
+	// WRITE
 	public void write(PostVo postVo) {
 		sqlSession.insert("blog-admin.write", postVo);
 	}
 
-	public void addCategory(CategoryVo categoryVo) {
-		sqlSession.insert("blog-admin.addCategory", categoryVo);
-	}
-
-	public int getCateCnt(int userNo) {
-		return sqlSession.selectOne("blog-admin.getCateCnt", userNo);
-	}
-
-	public int deleteCategory(int cateNo) {
-		return sqlSession.delete("blog-admin.deleteCategory", cateNo);
-	}
 }
