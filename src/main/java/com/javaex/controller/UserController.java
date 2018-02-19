@@ -26,10 +26,15 @@ public class UserController {
 
 	@RequestMapping("/join")
 	public String join(@ModelAttribute UserVo userVo) {
-		System.out.println(userVo.toString());
-		userService.join(userVo);
-		
-		return "user/joinSuccess";
+
+		if(userVo.getUserName() != null && userVo.getUserName() != "" 
+				&& userVo.getUserId() != null && userVo.getUserId() != ""
+				&& userVo.getPassword() != null && userVo.getPassword() != "") {
+			userService.join(userVo);
+			
+			return "user/joinSuccess";
+		} else
+			return "redirect:/user/joinform";
 	}
 
 	@RequestMapping("/loginform")
