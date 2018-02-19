@@ -29,18 +29,13 @@
 
 		<div id="extra">
 			<div class="blog-logo">
-				<img src="/jblog/assets/images/spring-logo.jpg">
+				<img src="">
 			</div>
 		</div>
 
 		<div id="navigation">
-			<h2>카테고리</h2>
-			<ul>
-				<li><a href="">닥치고 스프링</a></li>
-				<li><a href="">스프링 스터디</a></li>
-				<li><a href="">스프링 프로젝트</a></li>
-				<li><a href="">기타</a></li>
-			</ul>
+			<h2><a href='javascript:fetchPostList(${userId}, 0)'>카테고리</a></h2>
+			<ul class="category-list"></ul>
 		</div>
 		
 		<c:import url="/WEB-INF/views/includes/footer.jsp" />
@@ -51,43 +46,97 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 		var userId = ${userId};
-		fetchPostList(userId);
+		
+		init(userId);
 	});
+
+	function init(userId){
+		fetchPostList(userId, 0);
+		fetchCategoryList(userId);
+		getLogo(userId);		
+	}
 	
-	function fetchPostList(userId){ // getList
+	function fetchPostList(userId, cateNo){ // getList
 		$.ajax({
 			url : "${pageContext.request.contextPath}/${userId}/api/getPostList",
 			type : "post",
-			data : {userId : userId},
+			data : {userId : userId, cateNo : cateNo},
 			dataType : "json",
 			success : function(pList){
-				for(var i = 0; i < pList.length; i++) {
-					render(pList[i]);
-				}
-
-				showFirstArticle(pList[0]);
+				$(".blog-list").empty();
+				
+				if(pList.length == 0){
+					$("#title").text("등록된 글이 없습니다.");
+					$("#article-content").text("");
+					}
+				else{
+					for(var i = 0; i < pList.length; i++) {
+							render_postlist(pList[i]);
+						}
+		
+						showFirstPost(pList[0]);
+					}
 			},
 			error : function(XHR, status, error) {
 				console.error(status + " : " + error);
 			}
 		});
-
 	}
 	
-	function render(postVo){
+	function render_postlist(postVo){
 		var str="";
 		str += "<li>";
-		str += "	<a href=\"\">"+postVo.postTitle+"</a>";
+		str += "	<a href=''>"+postVo.postTitle+"</a>";
 		str += "	<span>"+postVo.regDate+"</span>";
 		str += "</li>";	
 
 		$(".blog-list").append(str);
-		
 	}
 	
-	function showFirstArticle(postVo){ // show First Article
+	function showFirstPost(postVo){ // show First Post
 		$("#title").text(postVo.postTitle);
 		$("#article-content").text(postVo.postContent);
+	}
+	
+	function fetchCategoryList(userId){ // get Category list
+		$.ajax({
+			url : "${pageContext.request.contextPath}/${userId}/api/getCateList",
+			type : "post",
+			data : {userId : userId},
+			dataType : "json",
+			success : function(cList){
+				for(var i = cList.length - 1; i >= 0; i--) {
+					render_category(cList[i]);
+				}
+			},
+			error : function(XHR, status, error) {
+				console.error(status + " : " + error);
+			}
+		});
+	}
+	
+	function render_category(categoryVo){
+		var str="";
+		str += "<li>";
+		str += "	<a href='javascript:fetchPostList(${userId}, "+categoryVo.cateNo+")'>"+categoryVo.cateName+"</a>";
+		str += "</li>";	
+
+		$(".category-list").append(str);
+	}
+	
+	function getLogo(userId){ // get Logo url
+		$.ajax({
+			url : "${pageContext.request.contextPath}/${userId}/api/getLogo",
+			type : "post",
+			data : {userId : userId},
+			dataType : "json",
+			success : function(logoUrl){
+ 				$("img").attr("src","${pageContext.request.contextPath}/upload/"+logoUrl);
+			},
+			error : function(XHR, status, error) {
+				console.error(status + " : " + error);
+			}
+		});
 	}
 	
 </script>

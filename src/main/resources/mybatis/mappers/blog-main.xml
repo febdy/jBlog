@@ -3,7 +3,7 @@
 
 <mapper namespace="blog-main">
 
-	<select id="getPostList" parameterType="int" resultType="com.javaex.vo.PostVo">
+	<select id="getAllPostList" parameterType="int" resultType="com.javaex.vo.PostVo">
 	<![CDATA[
 		SELECT postNo, p.cateNo, postTitle, postContent, to_char(p.regDate, 'YYYY-MM-DD HH24:MM') regDate
 		FROM post p, category c
@@ -13,4 +13,14 @@
 	]]>
 	</select>
 
+	<select id="getPostListByCate" parameterType="map" resultType="com.javaex.vo.PostVo">
+	<![CDATA[
+		SELECT postNo, p.cateNo, postTitle, postContent, to_char(p.regDate, 'YYYY-MM-DD HH24:MM') regDate
+		FROM post p, category c
+		WHERE p.cateNo = c.cateNo
+		AND userNo = #{userNo}
+		AND p.cateNo = #{cateNo}
+		ORDER BY regDate DESC
+	]]>
+	</select>
 </mapper>
