@@ -21,7 +21,7 @@ import com.javaex.vo.PostVo;
 public class ApiBlogAdminController {
 
 	@Autowired
-	BlogAdminService blogAdminService;
+	private BlogAdminService blogAdminService;
 
 	@ResponseBody
 	@RequestMapping(value = "/getCategory", method = RequestMethod.POST)

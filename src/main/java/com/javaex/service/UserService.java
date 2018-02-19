@@ -12,9 +12,9 @@ import com.javaex.vo.UserVo;
 public class UserService {
 
 	@Autowired
-	UserDao userDao;
+	private UserDao userDao;
 	@Autowired
-	BlogAdminDao blogAdminDao;
+	private BlogAdminDao blogAdminDao;
 
 	@Transactional
 	public void join(UserVo userVo) {
@@ -29,4 +29,7 @@ public class UserService {
 		return userDao.login(id, password);
 	}
 
+	public int checkId(String userId) {
+		return userDao.checkId(userId);
+	}
 }

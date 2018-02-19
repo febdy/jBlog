@@ -16,7 +16,7 @@ import com.javaex.vo.UserVo;
 public class UserController {
 
 	@Autowired
-	UserService userService;
+	private UserService userService;
 
 	@RequestMapping("/joinform")
 	public String joinform() {
@@ -26,10 +26,15 @@ public class UserController {
 
 	@RequestMapping("/join")
 	public String join(@ModelAttribute UserVo userVo) {
-		System.out.println(userVo.toString());
-		userService.join(userVo);
-		
-		return "user/joinSuccess";
+
+		if(userVo.getUserName() != null && userVo.getUserName() != "" 
+				&& userVo.getUserId() != null && userVo.getUserId() != ""
+				&& userVo.getPassword() != null && userVo.getPassword() != "") {
+			userService.join(userVo);
+			
+			return "user/joinSuccess";
+		} else
+			return "redirect:/user/joinform";
 	}
 
 	@RequestMapping("/loginform")

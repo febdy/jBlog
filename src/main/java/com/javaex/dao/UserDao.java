@@ -13,7 +13,7 @@ import com.javaex.vo.UserVo;
 public class UserDao {
 
 	@Autowired
-	SqlSession sqlSession;
+	private SqlSession sqlSession;
 
 	public void join(UserVo userVo) {
 		sqlSession.insert("users.join", userVo);
@@ -29,6 +29,10 @@ public class UserDao {
 
 	public int getUserNoById(String userId) {
 		return sqlSession.selectOne("users.getUserNoById", userId);
+  }
+  
+	public int checkId(String userId) {
+		return sqlSession.selectOne("users.checkId", userId);
 	}
 
 }

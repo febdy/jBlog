@@ -29,4 +29,13 @@
 		WHERE id = #{userId}
 	]]>
 	</select>
+
+	<select id="checkId" parameterType="String" resultType="int">
+	<![CDATA[
+		SELECT count(id)
+		FROM users
+		WHERE id = #{userId}
+	]]>
+	</select>
+
 </mapper>

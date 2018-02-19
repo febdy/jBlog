@@ -22,7 +22,7 @@ import com.javaex.vo.PostVo;
 public class BlogAdminService {
 
 	@Autowired
-	BlogAdminDao blogAdminDao;
+	private BlogAdminDao blogAdminDao;
 
 	public BlogVo getAdminBasic(int userNo) {
 		return blogAdminDao.getAdminBasic(userNo);
