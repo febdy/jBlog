@@ -5,6 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
 <title>JBlog</title>
 <link rel="stylesheet" href="/jblog/assets/css/jblog.css">
 </head>
@@ -21,7 +22,10 @@
       		<input type="text" name="password">
       		
       		<p class="form-error">
-				에러메세지
+				<c:if test="${param.loginfail == true}">
+				로그인 실패<br>
+				아이디/패스워드를 확인해주세요.
+				</c:if>
 			</p>
       		<input type="submit" value="로그인">
 		</form>
@@ -31,4 +35,5 @@
   		<p></p>
 	</div>
 </body>
+
 </html>
