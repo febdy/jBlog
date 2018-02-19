@@ -27,4 +27,8 @@ public class UserDao {
 		return sqlSession.selectOne("users.login", map);
 	}
 
+	public int getUserNoById(String userId) {
+		return sqlSession.selectOne("users.getUserNoById", userId);
+	}
+
 }

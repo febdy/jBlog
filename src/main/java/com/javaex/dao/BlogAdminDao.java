@@ -10,12 +10,11 @@ import com.javaex.vo.BlogVo;
 import com.javaex.vo.CategoryVo;
 import com.javaex.vo.PostVo;
 
-
 @Repository
 public class BlogAdminDao {
 
 	@Autowired
-	SqlSession sqlSession;
+	private SqlSession sqlSession;
 
 	// ADMIN BASIC
 	public void setAdminBasic(int userNo) {
@@ -51,19 +50,9 @@ public class BlogAdminDao {
 		return sqlSession.delete("blog-admin.deleteCategory", cateNo);
 	}
 
+	// WRITE
 	public void write(PostVo postVo) {
 		sqlSession.insert("blog-admin.write", postVo);
 	}
 
-	public void addCategory(CategoryVo categoryVo) {
-		sqlSession.insert("blog-admin.addCategory", categoryVo);
-	}
-
-	public int getCateCnt(int userNo) {
-		return sqlSession.selectOne("blog-admin.getCateCnt", userNo);
-	}
-
-	public int deleteCategory(int cateNo) {
-		return sqlSession.delete("blog-admin.deleteCategory", cateNo);
-	}
 }

@@ -21,5 +21,12 @@
 		WHERE id = #{id} AND password = #{password}
 	]]>
 	</select>
-
+	
+	<select id="getUserNoById" parameterType="String" resultType="int">
+	<![CDATA[
+		SELECT userNo
+		FROM users
+		WHERE id = #{userId}
+	]]>
+	</select>
 </mapper>
