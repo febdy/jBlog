@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="blog-main">
+
+	<select id="getAllPostList" parameterType="int" resultType="com.javaex.vo.PostVo">
+	<![CDATA[
+		SELECT postNo, p.cateNo, postTitle, postContent, to_char(p.regDate, 'YYYY-MM-DD HH24:MM') regDate
+		FROM post p, category c
+		WHERE p.cateNo = c.cateNo
+		AND userNo = #{userNo}
+		ORDER BY regDate DESC
+	]]>
+	</select>
+
+	<select id="getPostListByCate" parameterType="map" resultType="com.javaex.vo.PostVo">
+	<![CDATA[
+		SELECT postNo, p.cateNo, postTitle, postContent, to_char(p.regDate, 'YYYY-MM-DD HH24:MM') regDate
+		FROM post p, category c
+		WHERE p.cateNo = c.cateNo
+		AND userNo = #{userNo}
+		AND p.cateNo = #{cateNo}
+		ORDER BY regDate DESC
+	]]>
+	</select>
+</mapper>

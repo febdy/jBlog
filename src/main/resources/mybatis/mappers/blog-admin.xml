@@ -5,10 +5,10 @@
 
 	<!-- *** BASIC *** -->
 
-	<insert id="setBasic" parameterType="int">
+	<insert id="setBasic" parameterType="com.javaex.vo.UserVo">
 	<![CDATA[
 		INSERT INTO blog (userNo, blogTitle)
-		VALUES (#{userNo}, 'Default_Title')
+		VALUES (#{userNo}, #{userId} || '의 블로그입니다.')
 	]]>
 	</insert>
 	

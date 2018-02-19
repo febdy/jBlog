@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.javaex.service.BlogAdminService;
 import com.javaex.vo.CategoryVo;
+import com.javaex.vo.PostVo;
 
 @Controller
 @RequestMapping("/{userId}/api/admin")
@@ -42,4 +43,5 @@ public class ApiBlogAdminController {
 
 		return blogAdminService.deleteCategory(cateNo);
 	}
+
 }
