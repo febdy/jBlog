@@ -25,8 +25,8 @@ public class BlogMainService {
 
 	public List<PostVo> getPostList(String userId, int cateNo) {
 		int userNo = userDao.getUserNoById(userId);
-		
-		if(cateNo == 0)
+
+		if (cateNo == 0)
 			return blogMainDao.getPostList(userNo);
 		else
 			return blogMainDao.getPostList(userNo, cateNo);
@@ -42,5 +42,11 @@ public class BlogMainService {
 		int userNo = userDao.getUserNoById(userId);
 
 		return blogAdminDao.getAdminBasic(userNo).getLogoFile();
+	}
+
+	public String getTitle(String userId) {
+		int userNo = userDao.getUserNoById(userId);
+
+		return blogMainDao.getTitle(userNo);
 	}
 }

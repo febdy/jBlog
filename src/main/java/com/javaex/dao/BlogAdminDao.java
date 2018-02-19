@@ -51,6 +51,10 @@ public class BlogAdminDao {
 		return sqlSession.delete("blog-admin.deleteCategory", cateNo);
 	}
 
+	public int getPostCnt(int cateNo) {
+		return sqlSession.selectOne("blog-admin.getPostCnt", cateNo);
+	}
+
 	// WRITE
 	public void write(PostVo postVo) {
 		sqlSession.insert("blog-admin.write", postVo);

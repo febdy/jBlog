@@ -27,4 +27,8 @@ public class BlogMainDao {
 
 		return sqlSession.selectList("blog-main.getPostListByCate", map);
 	}
+
+	public String getTitle(int userNo) {
+		return sqlSession.selectOne("blog-main.getTitle", userNo);
+	}
 }

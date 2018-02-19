@@ -40,4 +40,12 @@ public class ApiBlogMainController {
 
 		return blogMainService.getLogo(userId);
 	}
+
+	@ResponseBody
+	@RequestMapping("/getTitle")
+	public String apiGetTitle(@PathVariable String userId) {
+		
+		return blogMainService.getTitle(userId);
+	}
+
 }

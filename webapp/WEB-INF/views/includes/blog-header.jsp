@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <div id="header">
-	<h1>블로그타이틀 출력해야함</h1>
+	<h1 id="header-title"></h1>
 	<ul>
 		<!-- 로그인 전 메뉴 -->
 		<c:if test="${empty authUser}">
@@ -20,3 +20,25 @@
 		</c:if>
 	</ul>
 </div>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		var userId = ${userId};
+		getTitle(userId);
+	});
+	
+	function getTitle(userId){
+		$.ajax({
+			url : "${pageContext.request.contextPath}/${userId}/api/getTitle",
+			type : "post",
+			data : {userId : userId},
+			dataType : "json",
+			success : function(result){
+				$("#header-title").html("<a href='${pageContext.request.contextPath}/${userId}'>"+result+"</a>");
+			},
+			error : function(XHR, status, error) {
+				console.error(status + " : " + error);
+			}
+		});
+	}
+</script>

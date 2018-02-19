@@ -45,10 +45,13 @@
 	
 	<select id="getCateList" parameterType="int" resultType="com.javaex.vo.CategoryVo">
 	<![CDATA[
-		SELECT cateNo, userNo, cateName, description, regDate
-		FROM category
-		WHERE userNo = #{userNo}
-		ORDER BY cateNo DESC
+		SELECT c.cateNo, userNo, cateName, nvl(postCnt, 0) postCnt, description, c.regDate
+		FROM category c, (SELECT cateNo, count(postNo) postCnt
+		                  FROM post
+		                  GROUP BY cateNo) p
+		WHERE c.cateNo = p.cateNo(+)
+		AND c.userNo = 31
+		ORDER BY c.cateNo DESC
 	]]>
 	</select>
 
@@ -77,6 +80,17 @@
 		WHERE cateNo = #{cateNo}
 	]]>
 	</delete>
+	
+	<select id="getPostCnt" parameterType="int" resultType="int">
+	<![CDATA[
+		SELECT nvl(postCnt, 0) postCnt
+		FROM category c, (SELECT cateNo, count(postNo) postCnt
+		                  FROM post
+		                  GROUP BY cateNo) p
+		WHERE c.cateNo = p.cateNo(+)
+		AND c.cateNo = #{cateNo}
+	]]>
+	</select>
 
 	
 	<!-- *** WRITE *** -->

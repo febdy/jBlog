@@ -23,4 +23,13 @@
 		ORDER BY regDate DESC
 	]]>
 	</select>
+	
+	<select id="getTitle" parameterType="int" resultType="String">
+	<![CDATA[
+		SELECT blogTitle
+		FROM blog
+		WHERE userNo = #{userNo}
+	]]>
+	</select>
+	
 </mapper>

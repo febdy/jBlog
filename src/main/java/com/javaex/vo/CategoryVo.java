@@ -4,6 +4,7 @@ public class CategoryVo {
 	private int cateNo;
 	private int userNo;
 	private String cateName;
+	private int postCnt;
 	private String description;
 	private String regDate;
 
@@ -42,6 +43,14 @@ public class CategoryVo {
 
 	public void setCateName(String cateName) {
 		this.cateName = cateName;
+	}
+
+	public int getPostCnt() {
+		return postCnt;
+	}
+
+	public void setPostCnt(int postCnt) {
+		this.postCnt = postCnt;
 	}
 
 	public String getDescription() {

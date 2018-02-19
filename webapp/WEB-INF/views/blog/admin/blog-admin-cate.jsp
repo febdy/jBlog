@@ -83,7 +83,7 @@
 		str += "<tr id=\"tr"+categoryVo.cateNo+"\">";
 		str += "	<th>"+num+"</th>";
 		str += "	<th>"+categoryVo.cateName+"</th>";
-		str += "	<th>"+"포스트 수"+"</th>";
+		str += "	<th>"+categoryVo.postCnt+"</th>";
 		str += "	<th>"+categoryVo.description+"</th>";
 		str += "	<th><img src=\"${pageContext.request.contextPath}/assets/images/delete.jpg\" class=\"delete\" id=\""+categoryVo.cateNo+"\"></th>";
 		str += "</tr>";
@@ -133,9 +133,11 @@
 
 			dataType : "json",
 			success : function(result){
-				if(result==1){
+				if(result == -1){
+					alert("삭제할 수 없습니다.");
+				} else {
 					$("#tr"+idNum).remove();
-				};
+				}
 			},
 			error : function(XHR, status, error) {
 				console.error(status + " : " + error);

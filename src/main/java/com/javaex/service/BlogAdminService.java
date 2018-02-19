@@ -73,7 +73,12 @@ public class BlogAdminService {
 	}
 
 	public int deleteCategory(int cateNo) {
-		return blogAdminDao.deleteCategory(cateNo);
+		int postCnt = blogAdminDao.getPostCnt(cateNo);
+
+		if (postCnt != 0)
+			return -1;
+		else
+			return blogAdminDao.deleteCategory(cateNo);
 	}
 
 	public void write(PostVo postVo) {
