@@ -15,7 +15,7 @@ import com.javaex.vo.PostVo;
 public class BlogAdminDao {
 
 	@Autowired
-	SqlSession sqlSession;
+	private SqlSession sqlSession;
 
 	// ADMIN BASIC
 	public void setAdminBasic(int userNo) {

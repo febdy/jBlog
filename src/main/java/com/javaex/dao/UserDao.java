@@ -13,7 +13,7 @@ import com.javaex.vo.UserVo;
 public class UserDao {
 
 	@Autowired
-	SqlSession sqlSession;
+	private SqlSession sqlSession;
 
 	public void join(UserVo userVo) {
 		sqlSession.insert("users.join", userVo);
@@ -25,6 +25,10 @@ public class UserDao {
 		map.put("password", password);
 
 		return sqlSession.selectOne("users.login", map);
+	}
+
+	public int checkId(String userId) {
+		return sqlSession.selectOne("users.checkId", userId);
 	}
 
 }

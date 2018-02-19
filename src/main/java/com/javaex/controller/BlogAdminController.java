@@ -20,7 +20,7 @@ import com.javaex.vo.UserVo;
 public class BlogAdminController {
 
 	@Autowired
-	BlogAdminService blogAdminService;
+	private BlogAdminService blogAdminService;
 
 	@RequestMapping("/basic")
 	public String adminBasic(@PathVariable String userId, HttpSession session, Model model) {

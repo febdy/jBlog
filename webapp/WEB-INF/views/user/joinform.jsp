@@ -5,6 +5,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/jquery/jquery-1.12.4.js"></script>
+
 <title>JBlog</title>
 <link rel="stylesheet" href="/jblog/assets/css/jblog.css">
 </head>
@@ -39,4 +41,26 @@
 	</div>
 
 </body>
+
+<script type="text/javascript">
+
+	$("#btn-checkid").on("click", function(){
+		$.ajax({
+			url : "${pageContext.request.contextPath}/api/users/checkId",
+			type : "post",
+			data : {userId : $("[name=userId]").val()},
+			dataType : "json",
+			success : function(result){
+				if(result != 0)
+					$(".form-error").text("다른 아이디로 가입해 주세요.");
+				else
+					$(".form-error").text("사용할 수 있는 아이디입니다.");				
+			},
+			error : function(XHR, status, error) {
+				console.error(status + " : " + error);
+			}
+		});
+	});
+</script>
+
 </html>

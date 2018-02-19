@@ -16,7 +16,7 @@ import com.javaex.vo.UserVo;
 public class UserController {
 
 	@Autowired
-	UserService userService;
+	private UserService userService;
 
 	@RequestMapping("/joinform")
 	public String joinform() {
