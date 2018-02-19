@@ -21,7 +21,7 @@ public class UserService {
 		userDao.join(userVo);
 		int userNo = userVo.getUserNo();
 
-		blogAdminDao.setAdminBasic(userNo);
+		blogAdminDao.setAdminBasic(userVo);
 		blogAdminDao.setCategory(userNo);
 	}
 

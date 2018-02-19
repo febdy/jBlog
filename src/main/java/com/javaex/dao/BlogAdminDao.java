@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.javaex.vo.BlogVo;
 import com.javaex.vo.CategoryVo;
 import com.javaex.vo.PostVo;
+import com.javaex.vo.UserVo;
 
 @Repository
 public class BlogAdminDao {
@@ -17,8 +18,8 @@ public class BlogAdminDao {
 	private SqlSession sqlSession;
 
 	// ADMIN BASIC
-	public void setAdminBasic(int userNo) {
-		sqlSession.insert("blog-admin.setBasic", userNo);
+	public void setAdminBasic(UserVo userVo) {
+		sqlSession.insert("blog-admin.setBasic", userVo);
 	}
 
 	public BlogVo getAdminBasic(int userNo) {
