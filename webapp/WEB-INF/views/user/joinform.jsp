@@ -84,30 +84,42 @@
 		
 		if(name.val() == ""){
 			$("#error-name").html("<font color='red'>이름을 입력해주세요.</font>");
+			alert("이름을 입력해주세요.");
 			name.focus();
+			return false;
+		}
+		
+		if(userId.val() == ""){
+			$("#error-id").html("<font color='red'>아이디를 입력해주세요.</font>");
+			alert("아이디를 입력해주세요.");
+			userId.focus();
 			return false;
 		}
 		
 		if(idCheck != true){
 			$("#error-id").html("<font color='red'>아이디 중복 확인을 해주세요.</font>");
+			alert("아이디 중복 체크를 해주세요.");
 			userId.focus();
 			return false;
 		} 
 		
 		if(idOk != true){
-			$("#error-id").html("<font color='red'>다른 아이디로 가입해 주세요.</font>");
+			$("#error-id").html("<font color='red'>다른 아이디로 가입해주세요.</font>");
+			alert("다른 아이디로 가입해주세요.");
 			userId.focus();
 			return false;
 		}
 		
 		if(password.val() == ""){
 			$("#error-password").html("<font color='red'>비밀번호를 입력해주세요.</font>");
+			alert("비밀번호를 입력해주세요");
 			password.focus();
 			return false;
 		}
 		
 		if(agreeProv[0].checked == false){
 			$("#error-agree").html("<font color='red'>약관에 동의해주세요.</font>");
+			alert("약관에 동의해주세요");
 			agreeProv.focus();
 			return false;
 		}

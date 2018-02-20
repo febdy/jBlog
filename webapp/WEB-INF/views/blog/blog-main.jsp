@@ -22,6 +22,18 @@
 				<div class="blog-content">
 					<h4 id="title"></h4>
 					<p id="article-content"><p>
+					
+					<h4>COMMENTS</h4>
+					<div id="comments">
+						<table>
+							<tr>
+								<td><input type="text" size="5" id="cmt-name"></td>
+								<td><textarea rows="3" cols="90%" id="cmt-content" style="resize:none"></textarea></td>
+								<td><input type="button" value="저장" id="btn-add-cmt"></td>
+							</tr>
+							<tr id="bar"></tr>
+						</table>
+					</div>
 				</div>
 				<ul class="blog-list">
 				</ul>
@@ -55,6 +67,9 @@
 </body>
 
 <script type="text/javascript">
+
+	var curPostNo;
+	
 	$(document).ready(function(){
 		var userId = ${userId};
 		
@@ -105,6 +120,9 @@
 		$("#title").text(postVo.postTitle);
 		var content = postVo.postContent;
 		$("#article-content").html(content);
+		curPostNo = postVo.postNo;
+		
+		fetchCommentList(postVo.postNo);
 	}
 	
 	function getPost(postNo){ // get Post
@@ -127,6 +145,67 @@
 			}
 		});
 	}
+	
+	function fetchCommentList(postNo){ // get Comment List
+		$.ajax({
+			url : "${pageContext.request.contextPath}/${userId}/api/getCommentList",
+			type : "post",
+			data : {postNo : postNo},
+			dataType : "json",
+			success : function(cList){
+				$("#bar").empty();
+				
+				for(var i = 0; i < cList.length; i++) {
+					render_commentlist(cList[i]);
+				}
+				
+				},
+			error : function(XHR, status, error) {
+				console.error(status + " : " + error);
+			}
+		});
+	}
+	
+ 	function render_commentlist(cmtVo){
+		var str="";
+		str += "<tr>";
+		str += "	<td>"+cmtVo.cmtName+"</td>";
+		str += "	<td>"+cmtVo.cmtContent+"</td>";
+		str += "	<td>"+cmtVo.regDate+"</td>";
+		str += "</tr>";	
+
+		$("#bar").after(str);
+	} 
+	
+/* 	function render_commentlist(cmtVo){
+		var str="";
+		str += "<li>";
+		str += "	<span>"+cmtVo.cmtName+"</span>";
+		str += "	<span>"+cmtVo.cmtContent+"</span>";
+		str += "	<span>"+cmtVo.regDate+"</span>";
+		str += "</li>";	
+
+		$("#bar").after(str);
+	} */
+	
+	$("#btn-add-cmt").on("click", function(){ // Add Comment
+		var cmtName = $("#cmt-name").val();
+		var cmtContent = $("#cmt-content").val();
+
+		$.ajax({
+			url : "${pageContext.request.contextPath}/${userId}/api/addComment",
+			type : "post",
+			data : {postNo : curPostNo, cmtName : cmtName, cmtContent : cmtContent},
+			dataType : "json",
+			success : function(cmtVo){
+				render_commentlist(cmtVo);
+			},
+			error : function(XHR, status, error) {
+				console.error(status + " : " + error);
+			}
+		});		
+
+	});
 	
 </script>
 </html>

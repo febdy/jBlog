@@ -10,7 +10,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.javaex.service.BlogMainService;
-import com.javaex.vo.CategoryVo;
+import com.javaex.service.BlogPostService;
+import com.javaex.vo.CommentVo;
 import com.javaex.vo.PostVo;
 
 @Controller
@@ -19,6 +20,9 @@ public class ApiBlogMainController {
 
 	@Autowired
 	BlogMainService blogMainService;
+	
+	@Autowired
+	BlogPostService blogPostService;
 
 	@ResponseBody
 	@RequestMapping("/getPostList")
@@ -41,4 +45,24 @@ public class ApiBlogMainController {
 		return blogMainService.getTitle(userId);
 	}
 
+	@ResponseBody
+	@RequestMapping("/getCommentList")
+	public List<CommentVo> apiGetCommentList(@PathVariable String userId, @RequestParam int postNo) {
+
+		return blogPostService.getCommentList(postNo);
+	}	
+	
+	@ResponseBody
+	@RequestMapping("/addComment")
+	public CommentVo apiAddComment(@PathVariable String userId, @RequestParam int postNo, @RequestParam String cmtName, @RequestParam String cmtContent) {
+		
+		CommentVo cmtVo = new CommentVo();
+		cmtVo.setPostNo(postNo);
+		cmtVo.setCmtname(cmtName);
+		cmtVo.setCmtContent(cmtContent);
+		
+		blogPostService.addComment(cmtVo);
+		
+		return cmtVo;
+	}
 }
