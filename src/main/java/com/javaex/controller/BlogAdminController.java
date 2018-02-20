@@ -71,7 +71,7 @@ public class BlogAdminController {
 
 		blogAdminService.write(postVo);
 
-		return "redirect:/{userId}";
+		return "redirect:/{userId}/admin/writeform";
 	}
 
 }

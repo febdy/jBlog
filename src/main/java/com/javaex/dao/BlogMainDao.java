@@ -20,15 +20,20 @@ public class BlogMainDao {
 		return sqlSession.selectList("blog-main.getAllPostList", userNo);
 	}
 
-	public List<PostVo> getPostList(int userNo, int cateNo) {
+	public List<PostVo> getPostList(int userNo, int cateNo) { // get post list by category
 		Map<String, Integer> map = new HashMap<>();
 		map.put("userNo", userNo);
 		map.put("cateNo", cateNo);
 
 		return sqlSession.selectList("blog-main.getPostListByCate", map);
 	}
+	
+	public PostVo getPost(int postNo) {
+		return sqlSession.selectOne("blog-main.getPost", postNo);
+	}
 
 	public String getTitle(int userNo) {
 		return sqlSession.selectOne("blog-main.getTitle", userNo);
 	}
+
 }

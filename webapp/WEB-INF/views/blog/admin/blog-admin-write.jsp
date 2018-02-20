@@ -21,7 +21,6 @@
 
 				<c:import url="/WEB-INF/views/includes/admin-menu.jsp" />
 				
-				
 				<form action="${pageContext.request.contextPath}/${authUser.userId}/admin/write" method="post">
 			      	<table class="admin-cat-write">
 			      		<tr>

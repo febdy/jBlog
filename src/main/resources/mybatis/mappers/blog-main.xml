@@ -9,7 +9,7 @@
 		FROM post p, category c
 		WHERE p.cateNo = c.cateNo
 		AND userNo = #{userNo}
-		ORDER BY regDate DESC
+		ORDER BY regDate DESC, postNo DESC
 	]]>
 	</select>
 
@@ -24,6 +24,14 @@
 	]]>
 	</select>
 	
+	<select id="getPost" parameterType="int" resultType="com.javaex.vo.PostVo">
+	<![CDATA[
+		SELECT postNo, cateNo, postTitle, postContent, to_char(regDate, 'YYYY-MM-DD HH24:MM') regDate
+		FROM post
+		WHERE postNo = #{postNo}
+	]]>
+	</select>
+
 	<select id="getTitle" parameterType="int" resultType="String">
 	<![CDATA[
 		SELECT blogTitle

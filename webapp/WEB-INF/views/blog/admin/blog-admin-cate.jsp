@@ -91,7 +91,7 @@
 		if(updown == "up")
 			$(str).insertAfter("#bar");
 		else if(updown == "down")
-			$(".admin-cat").append(str);
+			$("#bar").after(str);
 		else
 			console.log("updown 오류");
 	}

@@ -31,6 +31,10 @@ public class BlogMainService {
 		else
 			return blogMainDao.getPostList(userNo, cateNo);
 	}
+	
+	public PostVo getPost(int postNo) {
+		return blogMainDao.getPost(postNo);
+	}
 
 	public List<CategoryVo> getCategoryList(String userId) {
 		int userNo = userDao.getUserNoById(userId);
@@ -49,4 +53,5 @@ public class BlogMainService {
 
 		return blogMainDao.getTitle(userNo);
 	}
+
 }

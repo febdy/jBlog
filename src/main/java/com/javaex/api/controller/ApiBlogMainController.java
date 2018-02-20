@@ -26,6 +26,13 @@ public class ApiBlogMainController {
 
 		return blogMainService.getPostList(userId, cateNo);
 	}
+	
+	@ResponseBody
+	@RequestMapping("/getPost")
+	public PostVo apiGetPost(@PathVariable String userId, @RequestParam int postNo) {
+
+		return blogMainService.getPost(postNo);
+	}
 
 	@ResponseBody
 	@RequestMapping("/getCateList")
@@ -44,7 +51,7 @@ public class ApiBlogMainController {
 	@ResponseBody
 	@RequestMapping("/getTitle")
 	public String apiGetTitle(@PathVariable String userId) {
-		
+
 		return blogMainService.getTitle(userId);
 	}
 

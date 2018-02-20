@@ -29,7 +29,7 @@
 
 		<div id="extra">
 			<div class="blog-logo">
-				<img src="">
+				<img src="/jblog/assets/images/spring-logo.jpg">
 			</div>
 		</div>
 
@@ -74,7 +74,7 @@
 							render_postlist(pList[i]);
 						}
 		
-						showFirstPost(pList[0]);
+						showPost(pList[0]);
 					}
 			},
 			error : function(XHR, status, error) {
@@ -86,16 +86,37 @@
 	function render_postlist(postVo){
 		var str="";
 		str += "<li>";
-		str += "	<a href=''>"+postVo.postTitle+"</a>";
+		str += "	<a href='javascript:getPost("+postVo.postNo+")'>"+postVo.postTitle+"</a>";
 		str += "	<span>"+postVo.regDate+"</span>";
 		str += "</li>";	
 
 		$(".blog-list").append(str);
 	}
 	
-	function showFirstPost(postVo){ // show First Post
+	function showPost(postVo){ // show Post
 		$("#title").text(postVo.postTitle);
 		$("#article-content").text(postVo.postContent);
+	}
+	
+	function getPost(postNo){ // get Post
+		$.ajax({
+			url : "${pageContext.request.contextPath}/${userId}/api/getPost",
+			type : "post",
+			data : {postNo : postNo},
+			dataType : "json",
+			success : function(postVo){
+				if(postVo != null){
+					showPost(postVo);
+				}
+				else{
+					$("#title").text("등록된 글이 없습니다.");
+					$("#article-content").text("");
+				}
+			},
+			error : function(XHR, status, error) {
+				console.error(status + " : " + error);
+			}
+		});
 	}
 	
 	function fetchCategoryList(userId){ // get Category list
