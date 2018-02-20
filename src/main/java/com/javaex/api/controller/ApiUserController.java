@@ -18,7 +18,9 @@ public class ApiUserController {
 	@ResponseBody
 	@RequestMapping("/checkId")
 	public int checkId(@RequestParam String userId) {
-
+		if(userId.equals(""))
+			return -1;
+		
 		return userService.checkId(userId);
 	}
 }
