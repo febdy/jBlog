@@ -50,7 +50,7 @@
 		                  FROM post
 		                  GROUP BY cateNo) p
 		WHERE c.cateNo = p.cateNo(+)
-		AND c.userNo = 31
+		AND c.userNo = #{userNo}
 		ORDER BY c.cateNo DESC
 	]]>
 	</select>

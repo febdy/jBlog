@@ -16,7 +16,8 @@
 
 		<c:import url="/WEB-INF/views/includes/blog-header.jsp" />
 		
-		<div id="wrapper">
+		<!-- *** Post *** -->
+		<div id="wrapper"> 
 			<div id="content">
 				<div class="blog-content">
 					<h4 id="title"></h4>
@@ -27,15 +28,25 @@
 			</div>
 		</div>
 
+
+		<!-- *** Logo *** -->
 		<div id="extra">
 			<div class="blog-logo">
-				<img src="/jblog/assets/images/spring-logo.jpg">
+				<img src="${pageContext.request.contextPath}${logoUrl}">
 			</div>
 		</div>
 
+
+		<!-- *** Category *** -->
 		<div id="navigation">
 			<h2><a href='javascript:fetchPostList(${userId}, 0)'>카테고리</a></h2>
-			<ul class="category-list"></ul>
+			<ul class="category-list">
+				<c:forEach items="${cList}" var="categoryVo" varStatus="status">
+					<li>
+						<a href='javascript:fetchPostList(${userId}, ${categoryVo.cateNo})'>${categoryVo.cateName}</a>
+					</li>
+				</c:forEach>
+			</ul>
 		</div>
 		
 		<c:import url="/WEB-INF/views/includes/footer.jsp" />
@@ -52,8 +63,6 @@
 
 	function init(userId){
 		fetchPostList(userId, 0);
-		fetchCategoryList(userId);
-		getLogo(userId);		
 	}
 	
 	function fetchPostList(userId, cateNo){ // getList
@@ -68,15 +77,14 @@
 				if(pList.length == 0){
 					$("#title").text("등록된 글이 없습니다.");
 					$("#article-content").text("");
-					}
-				else{
+				} else{
 					for(var i = 0; i < pList.length; i++) {
 							render_postlist(pList[i]);
 						}
 		
 						showPost(pList[0]);
 					}
-			},
+				},
 			error : function(XHR, status, error) {
 				console.error(status + " : " + error);
 			}
@@ -112,47 +120,6 @@
 					$("#title").text("등록된 글이 없습니다.");
 					$("#article-content").text("");
 				}
-			},
-			error : function(XHR, status, error) {
-				console.error(status + " : " + error);
-			}
-		});
-	}
-	
-	function fetchCategoryList(userId){ // get Category list
-		$.ajax({
-			url : "${pageContext.request.contextPath}/${userId}/api/getCateList",
-			type : "post",
-			data : {userId : userId},
-			dataType : "json",
-			success : function(cList){
-				for(var i = cList.length - 1; i >= 0; i--) {
-					render_category(cList[i]);
-				}
-			},
-			error : function(XHR, status, error) {
-				console.error(status + " : " + error);
-			}
-		});
-	}
-	
-	function render_category(categoryVo){
-		var str="";
-		str += "<li>";
-		str += "	<a href='javascript:fetchPostList(${userId}, "+categoryVo.cateNo+")'>"+categoryVo.cateName+"</a>";
-		str += "</li>";	
-
-		$(".category-list").append(str);
-	}
-	
-	function getLogo(userId){ // get Logo url
-		$.ajax({
-			url : "${pageContext.request.contextPath}/${userId}/api/getLogo",
-			type : "post",
-			data : {userId : userId},
-			dataType : "json",
-			success : function(logoUrl){
- 				$("img").attr("src","${pageContext.request.contextPath}/upload/"+logoUrl);
 			},
 			error : function(XHR, status, error) {
 				console.error(status + " : " + error);

@@ -31,7 +31,7 @@ public class BlogMainService {
 		else
 			return blogMainDao.getPostList(userNo, cateNo);
 	}
-	
+
 	public PostVo getPost(int postNo) {
 		return blogMainDao.getPost(postNo);
 	}
@@ -45,7 +45,14 @@ public class BlogMainService {
 	public String getLogo(String userId) {
 		int userNo = userDao.getUserNoById(userId);
 
-		return blogAdminDao.getAdminBasic(userNo).getLogoFile();
+		String logoUrl = blogAdminDao.getAdminBasic(userNo).getLogoFile();
+
+		if (logoUrl != null)
+			logoUrl = "/upload/" + logoUrl;
+		else
+			logoUrl = "/assets/images/spring-logo.jpg";
+
+		return logoUrl;
 	}
 
 	public String getTitle(String userId) {
