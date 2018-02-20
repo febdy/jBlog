@@ -33,7 +33,9 @@ public class BlogMainService {
 	}
 
 	public PostVo getPost(int postNo) {
-		return blogMainDao.getPost(postNo);
+		PostVo postVo = blogMainDao.getPost(postNo);
+		
+		return postVo;
 	}
 
 	public List<CategoryVo> getCategoryList(String userId) {

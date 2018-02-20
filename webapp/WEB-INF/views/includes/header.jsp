@@ -2,13 +2,13 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<a href="${pageContext.request.contextPath}/main"><img class="logo"
+<a href="${pageContext.request.contextPath}/"><img class="logo"
 	src="${pageContext.request.contextPath}/assets/images/logo.jpg"></a>
 <ul class="menu">
 
 	<c:if test="${empty authUser}">
-		<li><a href="${pageContext.request.contextPath}/user/loginform">로그인</a></li>
-		<li><a href="${pageContext.request.contextPath}/user/joinform">회원가입</a></li>
+		<li><a href="${pageContext.request.contextPath}/user/login">로그인</a></li>
+		<li><a href="${pageContext.request.contextPath}/user/join">회원가입</a></li>
 	</c:if>
 	<c:if test="${not empty authUser}">
 		<li><a href="${pageContext.request.contextPath}/user/logout">로그아웃</a></li>

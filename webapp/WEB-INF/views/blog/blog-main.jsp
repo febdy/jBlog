@@ -81,7 +81,7 @@
 					for(var i = 0; i < pList.length; i++) {
 							render_postlist(pList[i]);
 						}
-		
+
 						showPost(pList[0]);
 					}
 				},
@@ -103,7 +103,8 @@
 	
 	function showPost(postVo){ // show Post
 		$("#title").text(postVo.postTitle);
-		$("#article-content").text(postVo.postContent);
+		var content = postVo.postContent;
+		$("#article-content").html(content);
 	}
 	
 	function getPost(postNo){ // get Post

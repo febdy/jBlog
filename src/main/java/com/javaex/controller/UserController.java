@@ -19,51 +19,46 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 
-	@RequestMapping("/joinform")
-	public String joinform() {
-
-		return "user/joinform";
-	}
-
 	@RequestMapping("/join")
 	public String join(@ModelAttribute UserVo userVo) {
-
-		if (userVo.getUserName() != null && userVo.getUserName() != "" && userVo.getUserId() != null
-				&& userVo.getUserId() != "" && userVo.getPassword() != null && userVo.getPassword() != "") {
+		if (userVo.getUserName() != null && userVo.getUserName() != "" && 
+			userVo.getUserId() != null && userVo.getUserId() != "" && 
+			userVo.getPassword() != null && userVo.getPassword() != "") {
+			
 			userService.join(userVo);
 
 			return "user/joinSuccess";
 		} else
-			return "redirect:/user/joinform";
-	}
-
-	@RequestMapping("/loginform")
-	public String loginform() {
-
-		return "user/loginForm";
+			return "user/joinform";
 	}
 
 	@RequestMapping("/login")
-	public String login(@RequestParam String id, @RequestParam String password, Model model, HttpSession session) {
+	public String login(@RequestParam(required=false) String id, 
+						@RequestParam(required=false) String password, 
+						Model model, 
+						HttpSession session) {
+		if(id == null && password == null)
+			return "user/loginForm";
+		
 		UserVo authUser = userService.login(id, password);
 
 		if (authUser != null) {
 			session.setAttribute("authUser", authUser);
 			System.out.println("Login :: " + authUser.toString());
 
-			return "redirect:/main";
+			return "redirect:/";
 		}
 
 		model.addAttribute("loginfail", true);
 
-		return "redirect:/user/loginform";
+		return "redirect:/user/login";
 	}
 
 	@RequestMapping("/logout")
 	public String logout(HttpSession session) {
 		session.removeAttribute("authUser");
 
-		return "redirect:/main";
+		return "redirect:/";
 	}
 
 }

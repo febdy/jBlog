@@ -67,9 +67,9 @@
 			data : {userNo : userNo},
 			dataType : "json",
 			success : function(cList){
-				for(var i = 0; i < cList.length; i++) {
+				for(var i = cList.length-1; 0 <= i; i--) {
 					var num = cList.length - i;
-					render(cList[i], num, "down");
+					render(cList[i], num);
 				}
 			},
 			error : function(XHR, status, error) {
@@ -78,7 +78,7 @@
 		});
 	}
 	
-	function render(categoryVo, num, updown){
+	function render(categoryVo, num){
 		var str="";
 		str += "<tr id=\"tr"+categoryVo.cateNo+"\">";
 		str += "	<th>"+num+"</th>";
@@ -88,12 +88,8 @@
 		str += "	<th><img src=\"${pageContext.request.contextPath}/assets/images/delete.jpg\" class=\"delete\" id=\""+categoryVo.cateNo+"\"></th>";
 		str += "</tr>";
 		
-		if(updown == "up")
-			$(str).insertAfter("#bar");
-		else if(updown == "down")
-			$("#bar").after(str);
-		else
-			console.log("updown 오류");
+		$("#bar").after(str);
+
 	}
 	
 	$("input[type=submit]").on("click", function(){ // add category	
@@ -111,7 +107,7 @@
 
 			dataType : "json",
 			success : function(map){
-				render(map.categoryVo, map.cnt, "up");
+				render(map.categoryVo, map.cnt);
 				$("[name=name]").val("");
 				$("[name=desc]").val("");
 			},

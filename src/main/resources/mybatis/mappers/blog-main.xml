@@ -15,7 +15,7 @@
 
 	<select id="getPostListByCate" parameterType="map" resultType="com.javaex.vo.PostVo">
 	<![CDATA[
-		SELECT postNo, p.cateNo, postTitle, postContent, to_char(p.regDate, 'YYYY-MM-DD HH24:MM') regDate
+		SELECT postNo, p.cateNo, postTitle, postContent, to_char(p.regDate, 'YYYY-MM-DD') regDate
 		FROM post p, category c
 		WHERE p.cateNo = c.cateNo
 		AND userNo = #{userNo}

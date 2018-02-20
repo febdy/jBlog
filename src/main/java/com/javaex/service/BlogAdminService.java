@@ -82,6 +82,7 @@ public class BlogAdminService {
 	}
 
 	public void write(PostVo postVo) {
+		postVo.setPostContent(postVo.getPostContent().replaceAll("\r\n", "<br>"));
 		blogAdminDao.write(postVo);
 	}
 

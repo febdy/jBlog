@@ -32,8 +32,10 @@ public class BlogAdminController {
 	}
 
 	@RequestMapping("/basicupdate")
-	public String adminBasicUpdate(@PathVariable String userId, @RequestParam("title") String blogTitle,
-			@RequestParam(value = "logo-file", required = false) MultipartFile logoFile, HttpSession session) {
+	public String adminBasicUpdate(@PathVariable String userId, 
+								   @RequestParam("title") String blogTitle,
+								   @RequestParam(value = "logo-file", required = false) MultipartFile logoFile, 
+								   HttpSession session) {
 
 		UserVo authUser = (UserVo) session.getAttribute("authUser");
 
@@ -52,26 +54,25 @@ public class BlogAdminController {
 		return "blog/admin/blog-admin-cate";
 	}
 
-	@RequestMapping("/writeform")
-	public String adminWriteForm(@PathVariable String userId) {
-
-		return "blog/admin/blog-admin-write";
-	}
-
 	@RequestMapping("/write")
-	public String adminWrite(@PathVariable String userId, 
-							 @RequestParam("title") String postTitle,
-							 @RequestParam("category") String category, 
-							 @RequestParam("content") String postContent) {
+	public String adminWrite(@PathVariable String userId,
+					 		 @RequestParam(value = "title", required = false) String postTitle,
+				 			 @RequestParam(value = "category", required = false) String category,
+							 @RequestParam(value = "content", required = false) String postContent) {
 
-		PostVo postVo = new PostVo();
-		postVo.setPostTitle(postTitle);
-		postVo.setCateNo(Integer.parseInt(category));
-		postVo.setPostContent(postContent);
-
-		blogAdminService.write(postVo);
-
-		return "redirect:/{userId}/admin/writeform";
+		if(postTitle == null)
+			return "blog/admin/blog-admin-write";
+		else {
+			PostVo postVo = new PostVo();
+			postVo.setPostTitle(postTitle);
+			postVo.setCateNo(Integer.parseInt(category));
+			postVo.setPostContent(postContent);
+	
+			blogAdminService.write(postVo);
+	
+			return "redirect:/{userId}/admin/write";
+		}
+	
 	}
 
 }
