@@ -23,21 +23,6 @@ public class BlogMainService {
 	@Autowired
 	BlogAdminDao blogAdminDao;
 
-	public List<PostVo> getPostList(String userId, int cateNo) {
-		int userNo = userDao.getUserNoById(userId);
-
-		if (cateNo == 0)
-			return blogMainDao.getPostList(userNo);
-		else
-			return blogMainDao.getPostList(userNo, cateNo);
-	}
-
-	public PostVo getPost(int postNo) {
-		PostVo postVo = blogMainDao.getPost(postNo);
-		
-		return postVo;
-	}
-
 	public List<CategoryVo> getCategoryList(String userId) {
 		int userNo = userDao.getUserNoById(userId);
 

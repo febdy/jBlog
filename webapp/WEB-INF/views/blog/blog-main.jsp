@@ -26,12 +26,11 @@
 					<h4>COMMENTS</h4>
 					<div id="comments">
 						<table>
-							<tr>
+							<tr id="comment-list">
 								<td><input type="text" size="5" id="cmt-name"></td>
-								<td><textarea rows="3" cols="90%" id="cmt-content" style="resize:none"></textarea></td>
+								<td><textarea rows="3" cols="80%" id="cmt-content" style="resize:none"></textarea></td>
 								<td><input type="button" value="저장" id="btn-add-cmt"></td>
 							</tr>
-							<tr id="bar"></tr>
 						</table>
 					</div>
 				</div>
@@ -153,7 +152,7 @@
 			data : {postNo : postNo},
 			dataType : "json",
 			success : function(cList){
-				$("#bar").empty();
+				$("#comment-list").nextAll().remove();
 				
 				for(var i = 0; i < cList.length; i++) {
 					render_commentlist(cList[i]);
@@ -174,19 +173,8 @@
 		str += "	<td>"+cmtVo.regDate+"</td>";
 		str += "</tr>";	
 
-		$("#bar").after(str);
-	} 
-	
-/* 	function render_commentlist(cmtVo){
-		var str="";
-		str += "<li>";
-		str += "	<span>"+cmtVo.cmtName+"</span>";
-		str += "	<span>"+cmtVo.cmtContent+"</span>";
-		str += "	<span>"+cmtVo.regDate+"</span>";
-		str += "</li>";	
-
-		$("#bar").after(str);
-	} */
+		$("#comment-list").after(str);
+	}
 	
 	$("#btn-add-cmt").on("click", function(){ // Add Comment
 		var cmtName = $("#cmt-name").val();
@@ -199,7 +187,9 @@
 			dataType : "json",
 			success : function(cmtVo){
 				render_commentlist(cmtVo);
-			},
+				$("#cmt-name").val("");
+				$("#cmt-content").val("");
+				},
 			error : function(XHR, status, error) {
 				console.error(status + " : " + error);
 			}

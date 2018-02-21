@@ -20,7 +20,7 @@ public class ApiBlogMainController {
 
 	@Autowired
 	BlogMainService blogMainService;
-	
+
 	@Autowired
 	BlogPostService blogPostService;
 
@@ -28,14 +28,14 @@ public class ApiBlogMainController {
 	@RequestMapping("/getPostList")
 	public List<PostVo> apiGetPostList(@PathVariable String userId, @RequestParam int cateNo) {
 
-		return blogMainService.getPostList(userId, cateNo);
+		return blogPostService.getPostList(userId, cateNo);
 	}
 
 	@ResponseBody
 	@RequestMapping("/getPost")
 	public PostVo apiGetPost(@PathVariable String userId, @RequestParam int postNo) {
 
-		return blogMainService.getPost(postNo);
+		return blogPostService.getPost(postNo);
 	}
 
 	@ResponseBody
@@ -50,19 +50,22 @@ public class ApiBlogMainController {
 	public List<CommentVo> apiGetCommentList(@PathVariable String userId, @RequestParam int postNo) {
 
 		return blogPostService.getCommentList(postNo);
-	}	
-	
+	}
+
 	@ResponseBody
 	@RequestMapping("/addComment")
-	public CommentVo apiAddComment(@PathVariable String userId, @RequestParam int postNo, @RequestParam String cmtName, @RequestParam String cmtContent) {
-		
+	public CommentVo apiAddComment(@PathVariable String userId, 
+								  @RequestParam int postNo, 
+								  @RequestParam String cmtName,
+								  @RequestParam String cmtContent) {
+
 		CommentVo cmtVo = new CommentVo();
 		cmtVo.setPostNo(postNo);
 		cmtVo.setCmtname(cmtName);
 		cmtVo.setCmtContent(cmtContent);
-		
+
 		blogPostService.addComment(cmtVo);
-		
+
 		return cmtVo;
 	}
 }
