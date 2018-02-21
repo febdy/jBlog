@@ -25,12 +25,14 @@
 					
 					<h4>COMMENTS</h4>
 					<div id="comments">
-						<table>
-							<tr id="comment-list">
-								<td><input type="text" size="5" id="cmt-name"></td>
-								<td><textarea rows="3" cols="80%" id="cmt-content" style="resize:none"></textarea></td>
-								<td><input type="button" value="저장" id="btn-add-cmt"></td>
-							</tr>
+						<table>		
+							<c:if test = "${not empty authUser}">
+								<tr id="comment-list">
+									<td>${authUser.userId}</td>
+									<td><textarea rows="3" cols="80%" id="cmt-content" style="resize:none"></textarea></td>
+									<td><input type="button" value="저장" id="btn-add-cmt"></td>
+								</tr>
+							</c:if>
 						</table>
 					</div>
 				</div>
@@ -177,7 +179,7 @@
 	}
 	
 	$("#btn-add-cmt").on("click", function(){ // Add Comment
-		var cmtName = $("#cmt-name").val();
+		var cmtName = ${authUser.userId};
 		var cmtContent = $("#cmt-content").val();
 
 		$.ajax({
@@ -187,7 +189,6 @@
 			dataType : "json",
 			success : function(cmtVo){
 				render_commentlist(cmtVo);
-				$("#cmt-name").val("");
 				$("#cmt-content").val("");
 				},
 			error : function(XHR, status, error) {

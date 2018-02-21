@@ -37,6 +37,7 @@ public class UserController {
 						@RequestParam(required=false) String password, 
 						Model model, 
 						HttpSession session) {
+		
 		if(id == null && password == null)
 			return "user/loginForm";
 		
@@ -46,7 +47,7 @@ public class UserController {
 			session.setAttribute("authUser", authUser);
 			System.out.println("Login :: " + authUser.toString());
 
-			return "redirect:/";
+			return "redirect:/";			
 		}
 
 		model.addAttribute("loginfail", true);
@@ -55,9 +56,12 @@ public class UserController {
 	}
 
 	@RequestMapping("/logout")
-	public String logout(HttpSession session) {
+	public String logout(HttpSession session, @RequestParam(required=false) String userId) {
 		session.removeAttribute("authUser");
 
+		if(userId != null)
+			return "redirect:/" + userId;
+		
 		return "redirect:/";
 	}
 
