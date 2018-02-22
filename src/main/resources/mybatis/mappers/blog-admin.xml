@@ -81,17 +81,6 @@
 	]]>
 	</delete>
 	
-	<select id="getPostCnt" parameterType="int" resultType="int">
-	<![CDATA[
-		SELECT nvl(postCnt, 0) postCnt
-		FROM category c, (SELECT cateNo, count(postNo) postCnt
-		                  FROM post
-		                  GROUP BY cateNo) p
-		WHERE c.cateNo = p.cateNo(+)
-		AND c.cateNo = #{cateNo}
-	]]>
-	</select>
-
 	
 	<!-- *** WRITE *** -->
 	

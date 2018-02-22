@@ -38,7 +38,9 @@ public class BlogPostService {
 		return blogPostDao.getCommentList(postNo);
 	}
 
-	public void addComment(CommentVo cmtVo) {
+	public CommentVo addComment(CommentVo cmtVo) {
 		blogPostDao.addComment(cmtVo);
+		
+		return blogPostDao.getComment(cmtVo.getCmtNo());
 	}
 }

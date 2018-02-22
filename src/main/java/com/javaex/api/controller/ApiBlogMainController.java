@@ -55,17 +55,15 @@ public class ApiBlogMainController {
 	@ResponseBody
 	@RequestMapping("/addComment")
 	public CommentVo apiAddComment(@PathVariable String userId, 
-								  @RequestParam int postNo, 
-								  @RequestParam String cmtName,
+								  @RequestParam int postNo,
+								  @RequestParam String cmtUserNo,
 								  @RequestParam String cmtContent) {
 
 		CommentVo cmtVo = new CommentVo();
 		cmtVo.setPostNo(postNo);
-		cmtVo.setCmtname(cmtName);
+		cmtVo.setUserNo(cmtUserNo);
 		cmtVo.setCmtContent(cmtContent);
 
-		blogPostService.addComment(cmtVo);
-
-		return cmtVo;
+		return blogPostService.addComment(cmtVo);
 	}
 }

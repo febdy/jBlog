@@ -3,11 +3,54 @@
 
 <mapper namespace="blog-post">
 
+	<select id="getAllPostList" parameterType="int" resultType="com.javaex.vo.PostVo">
+	<![CDATA[
+		SELECT postNo, p.cateNo, postTitle, postContent, to_char(p.regDate, 'YYYY-MM-DD HH24:MM') regDate
+		FROM post p, category c
+		WHERE p.cateNo = c.cateNo
+		AND userNo = #{userNo}
+		ORDER BY regDate DESC, postNo DESC
+	]]>
+	</select>
+
+	<select id="getPostListByCate" parameterType="map" resultType="com.javaex.vo.PostVo">
+	<![CDATA[
+		SELECT postNo, p.cateNo, postTitle, postContent, to_char(p.regDate, 'YYYY-MM-DD') regDate
+		FROM post p, category c
+		WHERE p.cateNo = c.cateNo
+		AND userNo = #{userNo}
+		AND p.cateNo = #{cateNo}
+		ORDER BY regDate DESC, postNo DESC
+	]]>
+	</select>
+	
+	<select id="getPost" parameterType="int" resultType="com.javaex.vo.PostVo">
+	<![CDATA[
+		SELECT postNo, cateNo, postTitle, postContent, to_char(regDate, 'YYYY-MM-DD HH24:MM') regDate
+		FROM post
+		WHERE postNo = #{postNo}
+	]]>
+	</select>
+	
+	<select id="getPostCnt" parameterType="int" resultType="int">
+	<![CDATA[
+		SELECT nvl(postCnt, 0) postCnt
+		FROM category c, (SELECT cateNo, count(postNo) postCnt
+		                  FROM post
+		                  GROUP BY cateNo) p
+		WHERE c.cateNo = p.cateNo(+)
+		AND c.cateNo = #{cateNo}
+	]]>
+	</select>
+	
+	
+	<!-- COMMENT -->
 	<select id="getCommentList" parameterType="int" resultType="com.javaex.vo.CommentVo">		
 	<![CDATA[
-		SELECT cmtNo, postNo, cmtName, cmtContent, to_char(regDate, 'YYYY-MM-DD') regDate
-		FROM comments
-		WHERE postNo = #{postNo}
+		SELECT cmtNo, postNo, u.userNo, id userId, cmtContent, to_char(regDate, 'YYYY-MM-DD') regDate
+		FROM comments c, users u
+		WHERE c.userNo = u.userNo
+		AND postNo = #{postNo}
 	]]>
 	</select>
 	
@@ -18,9 +61,18 @@
 		</selectKey>
 		
 	<![CDATA[
-		INSERT INTO comments (cmtNo, postNo, cmtName, cmtContent, regDate)
-		VALUES (#{cmtNo}, #{postNo}, #{cmtName}, #{cmtContent}, sysdate)
+		INSERT INTO comments (cmtNo, postNo, userNo, cmtContent, regDate)
+		VALUES (#{cmtNo}, #{postNo}, #{userNo}, #{cmtContent}, sysdate)
 	]]>
 	</insert>
+	
+	<select id="getComment" parameterType="int" resultType="com.javaex.vo.CommentVo">		
+	<![CDATA[
+		SELECT cmtNo, postNo, u.userNo, id userId, cmtContent, to_char(regDate, 'YYYY-MM-DD') regDate
+		FROM comments c, users u
+		WHERE c.userNo = u.userNo
+		AND cmtNo = #{cmtNo}
+	]]>
+	</select>
 	
 </mapper>

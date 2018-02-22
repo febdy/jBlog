@@ -3,7 +3,8 @@ package com.javaex.vo;
 public class CommentVo {
 	private int cmtNo;
 	private int postNo;
-	private String cmtName;
+	private String userNo;
+	private String userId;
 	private String cmtContent;
 	private String regDate;
 
@@ -12,7 +13,6 @@ public class CommentVo {
 	}
 
 	public CommentVo(int cmtNo, int postNo, String cmtContent, String regDate) {
-		super();
 		this.cmtNo = cmtNo;
 		this.postNo = postNo;
 		this.cmtContent = cmtContent;
@@ -27,6 +27,22 @@ public class CommentVo {
 		this.cmtNo = cmtNo;
 	}
 
+	public String getUserNo() {
+		return userNo;
+	}
+
+	public void setUserNo(String userNo) {
+		this.userNo = userNo;
+	}
+
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
 	public int getPostNo() {
 		return postNo;
 	}
@@ -35,14 +51,6 @@ public class CommentVo {
 		this.postNo = postNo;
 	}
 
-	public String getCmtName() {
-		return cmtName;
-	}
-
-	public void setCmtname(String cmtName) {
-		this.cmtName = cmtName;
-	}
-	
 	public String getCmtContent() {
 		return cmtContent;
 	}

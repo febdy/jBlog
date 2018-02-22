@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.javaex.dao.BlogAdminDao;
+import com.javaex.dao.BlogPostDao;
 import com.javaex.vo.BlogVo;
 import com.javaex.vo.CategoryVo;
 import com.javaex.vo.PostVo;
@@ -23,6 +24,9 @@ public class BlogAdminService {
 
 	@Autowired
 	private BlogAdminDao blogAdminDao;
+	
+	@Autowired
+	private BlogPostDao blogPostDao;
 
 	public BlogVo getAdminBasic(int userNo) {
 		return blogAdminDao.getAdminBasic(userNo);
@@ -73,7 +77,7 @@ public class BlogAdminService {
 	}
 
 	public int deleteCategory(int cateNo) {
-		int postCnt = blogAdminDao.getPostCnt(cateNo);
+		int postCnt = blogPostDao.getPostCnt(cateNo);
 
 		if (postCnt != 0)
 			return -1;

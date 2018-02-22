@@ -19,7 +19,7 @@
       		<input type="text" name="id">
       		
       		<label>패스워드</label> 
-      		<input type="text" name="password">
+      		<input type="password" name="password">
       		
       		<p class="form-error">
 				<c:if test="${param.loginfail == true}">

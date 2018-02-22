@@ -17,29 +17,39 @@
 		<c:import url="/WEB-INF/views/includes/blog-header.jsp" />
 		
 		<!-- *** Post *** -->
-		<div id="wrapper"> 
+		<div id="wrapper">
 			<div id="content">
 				<div class="blog-content">
 					<h4 id="title"></h4>
 					<p id="article-content"><p>
 					
-					<h4>COMMENTS</h4>
-					<div id="comments">
-						<table>		
+					<br><br>
+					<div class="comments">
+						<h4 id="cmt-header">COMMENTS</h4>
+						<table>
+							<colgroup>
+								<col width="10%">
+								<col>
+								<col width="20%">
+							<colgroup>
 							<c:if test = "${not empty authUser}">
-								<tr id="comment-list">
+								<tr id="comment-form">
 									<td>${authUser.userId}</td>
-									<td><textarea rows="3" cols="80%" id="cmt-content" style="resize:none"></textarea></td>
+									<td><textarea rows="3" cols="80%" id="cmt-content"></textarea></td>
 									<td><input type="button" value="저장" id="btn-add-cmt"></td>
 								</tr>
 							</c:if>
+								<tr id="comment-list"></tr>
 						</table>
-					</div>
-				</div>
-				<ul class="blog-list">
-				</ul>
-			</div>
-		</div>
+					</div> <!-- comments -->
+
+					<br><br>
+					<h4 id="post-list-header">POST LIST</h4>
+					<ul class="blog-list"></ul>
+					
+				</div> <!-- blog-content -->				
+			</div> <!-- content -->
+		</div> <!-- wrapper -->
 
 
 		<!-- *** Logo *** -->
@@ -82,6 +92,9 @@
 	}
 	
 	function fetchPostList(userId, cateNo){ // getList
+		$("#comment-list").nextAll().remove();
+		$("#post-list-header").show();
+	
 		$.ajax({
 			url : "${pageContext.request.contextPath}/${userId}/api/getPostList",
 			type : "post",
@@ -91,8 +104,7 @@
 				$(".blog-list").empty();
 				
 				if(pList.length == 0){
-					$("#title").text("등록된 글이 없습니다.");
-					$("#article-content").text("");
+					noPost();
 				} else{
 					for(var i = 0; i < pList.length; i++) {
 							render_postlist(pList[i]);
@@ -123,6 +135,7 @@
 		$("#article-content").html(content);
 		curPostNo = postVo.postNo;
 		
+		$("#comment-form").show();
 		fetchCommentList(postVo.postNo);
 	}
 	
@@ -132,13 +145,12 @@
 			type : "post",
 			data : {postNo : postNo},
 			dataType : "json",
-			success : function(postVo){
+			success : function(postVo){				
 				if(postVo != null){
 					showPost(postVo);
 				}
 				else{
-					$("#title").text("등록된 글이 없습니다.");
-					$("#article-content").text("");
+					noPost();
 				}
 			},
 			error : function(XHR, status, error) {
@@ -148,14 +160,15 @@
 	}
 	
 	function fetchCommentList(postNo){ // get Comment List
+		$("#cmt-header").show();
+		$("#comment-list").nextAll().remove();
+	
 		$.ajax({
 			url : "${pageContext.request.contextPath}/${userId}/api/getCommentList",
 			type : "post",
 			data : {postNo : postNo},
 			dataType : "json",
-			success : function(cList){
-				$("#comment-list").nextAll().remove();
-				
+			success : function(cList){				
 				for(var i = 0; i < cList.length; i++) {
 					render_commentlist(cList[i]);
 				}
@@ -169,34 +182,47 @@
 	
  	function render_commentlist(cmtVo){
 		var str="";
-		str += "<tr>";
-		str += "	<td>"+cmtVo.cmtName+"</td>";
+		str += "<tr id='cmt"+cmtVo.userNo+"'>";
+		str += "	<td>"+cmtVo.userId+"</td>";
 		str += "	<td>"+cmtVo.cmtContent+"</td>";
-		str += "	<td>"+cmtVo.regDate+"</td>";
-		str += "</tr>";	
+		str += "	<td><span>"+cmtVo.regDate+"</span></td>";
+		str += "</tr>";
 
 		$("#comment-list").after(str);
 	}
-	
+
 	$("#btn-add-cmt").on("click", function(){ // Add Comment
-		var cmtName = ${authUser.userId};
+		if(${authUser != null})
+			var userId = ${authUser.userId} + "";
+	
+		var cmtUserNo = '${authUser.userNo}';
 		var cmtContent = $("#cmt-content").val();
 
 		$.ajax({
 			url : "${pageContext.request.contextPath}/${userId}/api/addComment",
 			type : "post",
-			data : {postNo : curPostNo, cmtName : cmtName, cmtContent : cmtContent},
+			data : {postNo : curPostNo, cmtUserNo : cmtUserNo, cmtContent : cmtContent},
 			dataType : "json",
 			success : function(cmtVo){
 				render_commentlist(cmtVo);
 				$("#cmt-content").val("");
-				},
+			},
 			error : function(XHR, status, error) {
 				console.error(status + " : " + error);
 			}
 		});		
 
 	});
+	
+	function noPost(){
+		$("#title").text("등록된 글이 없습니다.");
+		$("#article-content").text("");
+		
+		$("#cmt-header").hide();
+		$("#post-list-header").hide();
+		$("#comment-form").hide();
+	}
+ 	
 	
 </script>
 </html>

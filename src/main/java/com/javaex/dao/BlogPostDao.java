@@ -18,7 +18,7 @@ public class BlogPostDao {
 	SqlSession sqlSession;
 
 	public List<PostVo> getPostList(int userNo) {
-		return sqlSession.selectList("blog-main.getAllPostList", userNo);
+		return sqlSession.selectList("blog-post.getAllPostList", userNo);
 	}
 
 	public List<PostVo> getPostList(int userNo, int cateNo) { // get post list by category
@@ -26,11 +26,15 @@ public class BlogPostDao {
 		map.put("userNo", userNo);
 		map.put("cateNo", cateNo);
 
-		return sqlSession.selectList("blog-main.getPostListByCate", map);
+		return sqlSession.selectList("blog-post.getPostListByCate", map);
 	}
 
 	public PostVo getPost(int postNo) {
-		return sqlSession.selectOne("blog-main.getPost", postNo);
+		return sqlSession.selectOne("blog-post.getPost", postNo);
+	}
+	
+	public int getPostCnt(int cateNo) {
+		return sqlSession.selectOne("blog-post.getPostCnt", cateNo);
 	}
 
 	public List<CommentVo> getCommentList(int postNo) {
@@ -39,5 +43,9 @@ public class BlogPostDao {
 
 	public void addComment(CommentVo cmtVo) {
 		sqlSession.insert("blog-post.addComment", cmtVo);
+	}
+
+	public CommentVo getComment(int cmtNo) {
+		return sqlSession.selectOne("blog-post.getComment", cmtNo);
 	}
 }
