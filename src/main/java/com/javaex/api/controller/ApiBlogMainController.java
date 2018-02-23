@@ -66,4 +66,13 @@ public class ApiBlogMainController {
 
 		return blogPostService.addComment(cmtVo);
 	}
+	
+	@ResponseBody
+	@RequestMapping("/removeComment")
+	public CommentVo apiRemoveComment(@PathVariable String userId, 
+								  @RequestParam int cmtNo) {
+
+		return blogPostService.removeComment(cmtNo);
+	}
+	
 }

@@ -26,20 +26,24 @@
 					<br><br>
 					<div class="comments">
 						<h4 id="cmt-header">COMMENTS</h4>
-						<table>
-							<colgroup>
-								<col width="10%">
-								<col>
-								<col width="20%">
-							<colgroup>
-							<c:if test = "${not empty authUser}">
+						<c:if test = "${not empty authUser}">
+							<table>
 								<tr id="comment-form">
 									<td>${authUser.userId}</td>
 									<td><textarea rows="3" cols="80%" id="cmt-content"></textarea></td>
 									<td><input type="button" value="저장" id="btn-add-cmt"></td>
 								</tr>
-							</c:if>
-								<tr id="comment-list"></tr>
+							</table>
+						</c:if>
+													
+						<table class="comment-list">
+							<colgroup>
+								<col width="10%">
+								<col>
+								<col width="20%">
+ 								<col width="5%">
+							</colgroup>
+							<tr id="comment-list"></tr>
 						</table>
 					</div> <!-- comments -->
 
@@ -182,11 +186,17 @@
 	
  	function render_commentlist(cmtVo){
 		var str="";
-		str += "<tr id='cmt"+cmtVo.userNo+"'>";
+		str += "<tr id='cmt"+cmtVo.cmtNo+"'>";
 		str += "	<td>"+cmtVo.userId+"</td>";
 		str += "	<td>"+cmtVo.cmtContent+"</td>";
 		str += "	<td><span>"+cmtVo.regDate+"</span></td>";
-		str += "</tr>";
+		
+		if(cmtVo.userNo == '${authUser.userNo}')
+	 		str += "<td name='remove-cmt' onClick='removeCmt()'>X</td>";
+		else
+			str += "<td></td>";
+
+	 	str += "</tr>";
 
 		$("#comment-list").after(str);
 	}
@@ -210,7 +220,7 @@
 			error : function(XHR, status, error) {
 				console.error(status + " : " + error);
 			}
-		});		
+		});
 
 	});
 	
@@ -221,6 +231,23 @@
 		$("#cmt-header").hide();
 		$("#post-list-header").hide();
 		$("#comment-form").hide();
+	}
+	
+	function removeCmt(){
+		console.log($(this).closest('tr').data("id"));
+		/* $.ajax({
+			url : "${pageContext.request.contextPath}/${userId}/api/removeComment",
+			type : "post",
+			data : {cmtNo : cmtNo},
+			dataType : "json",
+			success : function(cmtVo){
+				render_commentlist(cmtVo);
+				$("#cmt-content").val("");
+			},
+			error : function(XHR, status, error) {
+				console.error(status + " : " + error);
+			}
+		}); */
 	}
  	
 	
