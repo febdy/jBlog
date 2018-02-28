@@ -85,7 +85,7 @@ div#content .comment-list		{ margin:20px 0 10px 10px }
 .comment-list tr				{ width:100% }
 .comment-list td				{ height:20px; clear:both; margin-right:30px }
 .comment-list td span			{ display:block; float:right; margin-right:30px }
-[name = "remove-cmt"]			{ color:red }
+.remove-cmt						{ color:red }
 
 /* admin content */
 div#content .admin-menu					{ height:20px; margin-top:15px; margin-bottom:10px }

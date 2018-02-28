@@ -72,7 +72,7 @@ public class ApiBlogMainController {
 	public CommentVo apiRemoveComment(@PathVariable String userId, 
 								  @RequestParam int cmtNo) {
 
-		return blogPostService.removeComment(cmtNo);
+		return null; //blogPostService.removeComment(cmtNo);
 	}
 	
 }

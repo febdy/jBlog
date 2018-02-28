@@ -186,13 +186,13 @@
 	
  	function render_commentlist(cmtVo){
 		var str="";
-		str += "<tr id='cmt"+cmtVo.cmtNo+"'>";
+		str += "<tr id='cmt"+cmtVo.cmtNo+"' data-l = '5'>";
 		str += "	<td>"+cmtVo.userId+"</td>";
 		str += "	<td>"+cmtVo.cmtContent+"</td>";
 		str += "	<td><span>"+cmtVo.regDate+"</span></td>";
 		
 		if(cmtVo.userNo == '${authUser.userNo}')
-	 		str += "<td name='remove-cmt' onClick='removeCmt()'>X</td>";
+	 		str += "<td class='remove-cmt'>X</td>";
 		else
 			str += "<td></td>";
 
@@ -233,8 +233,9 @@
 		$("#comment-form").hide();
 	}
 	
-	function removeCmt(){
-		console.log($(this).closest('tr').data("id"));
+ 	$(".comment-list").on("click", ".remove-cmt", function(){
+		console.log($(this).closest('tr').attr('id'));
+		
 		/* $.ajax({
 			url : "${pageContext.request.contextPath}/${userId}/api/removeComment",
 			type : "post",
@@ -248,7 +249,7 @@
 				console.error(status + " : " + error);
 			}
 		}); */
-	}
+	}); 
  	
 	
 </script>

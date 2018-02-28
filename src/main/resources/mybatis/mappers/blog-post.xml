@@ -51,6 +51,7 @@
 		FROM comments c, users u
 		WHERE c.userNo = u.userNo
 		AND postNo = #{postNo}
+		ORDER BY regDate DESC, cmtNo DESC
 	]]>
 	</select>
 	
