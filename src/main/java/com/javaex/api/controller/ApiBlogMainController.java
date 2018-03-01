@@ -69,10 +69,10 @@ public class ApiBlogMainController {
 	
 	@ResponseBody
 	@RequestMapping("/removeComment")
-	public CommentVo apiRemoveComment(@PathVariable String userId, 
-								  @RequestParam int cmtNo) {
+	public int apiRemoveComment(@PathVariable String userId, 
+								  @RequestParam String cmtId) {
 
-		return null; //blogPostService.removeComment(cmtNo);
+		return blogPostService.removeComment(cmtId);
 	}
 	
 }

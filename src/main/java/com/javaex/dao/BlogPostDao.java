@@ -32,7 +32,7 @@ public class BlogPostDao {
 	public PostVo getPost(int postNo) {
 		return sqlSession.selectOne("blog-post.getPost", postNo);
 	}
-	
+
 	public int getPostCnt(int cateNo) {
 		return sqlSession.selectOne("blog-post.getPostCnt", cateNo);
 	}
@@ -47,5 +47,9 @@ public class BlogPostDao {
 
 	public CommentVo getComment(int cmtNo) {
 		return sqlSession.selectOne("blog-post.getComment", cmtNo);
+	}
+
+	public int removeComment(int cmtNo) {
+		return sqlSession.delete("blog-post.removeComment", cmtNo);
 	}
 }

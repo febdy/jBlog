@@ -40,7 +40,13 @@ public class BlogPostService {
 
 	public CommentVo addComment(CommentVo cmtVo) {
 		blogPostDao.addComment(cmtVo);
-		
+
 		return blogPostDao.getComment(cmtVo.getCmtNo());
+	}
+
+	public int removeComment(String cmtId) {
+		int cmtNo = Integer.parseInt(cmtId.replace("cmt", ""));
+
+		return blogPostDao.removeComment(cmtNo);
 	}
 }

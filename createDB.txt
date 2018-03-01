@@ -37,10 +37,11 @@ create table post(
 create table comments(
     cmtNo number primary key,
     postNo number,
+    userNo number,
     cmtContent varchar2(1000) not null,
     regDate date not null,
     constraint f_postNo foreign key (postNo)
-    references post(postNo)
+    references post(postNo)	
 );
 
 create sequence seq_users_no

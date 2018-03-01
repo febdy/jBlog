@@ -51,7 +51,7 @@
 		FROM comments c, users u
 		WHERE c.userNo = u.userNo
 		AND postNo = #{postNo}
-		ORDER BY regDate DESC, cmtNo DESC
+		ORDER BY regDate ASC, cmtNo ASC
 	]]>
 	</select>
 	
@@ -75,5 +75,12 @@
 		AND cmtNo = #{cmtNo}
 	]]>
 	</select>
+	
+	<delete id="removeComment" parameterType="int">		
+	<![CDATA[
+		DELETE FROM comments
+		WHERE cmtNo = #{cmtNo}
+	]]>
+	</delete>
 	
 </mapper>

@@ -95,7 +95,7 @@
 		fetchPostList(userId, 0);
 	}
 	
-	function fetchPostList(userId, cateNo){ // getList
+	function fetchPostList(userId, cateNo){ // get Post List
 		$("#comment-list").nextAll().remove();
 		$("#post-list-header").show();
 	
@@ -234,21 +234,22 @@
 	}
 	
  	$(".comment-list").on("click", ".remove-cmt", function(){
-		console.log($(this).closest('tr').attr('id'));
+ 		var cmtId = $(this).closest('tr').attr('id');
 		
-		/* $.ajax({
+		 $.ajax({
 			url : "${pageContext.request.contextPath}/${userId}/api/removeComment",
 			type : "post",
-			data : {cmtNo : cmtNo},
+			data : {cmtId : cmtId},
 			dataType : "json",
-			success : function(cmtVo){
-				render_commentlist(cmtVo);
-				$("#cmt-content").val("");
+			success : function(result){
+				if(result == 1){
+					$("#"+cmtId).remove();
+				}
 			},
 			error : function(XHR, status, error) {
 				console.error(status + " : " + error);
 			}
-		}); */
+		});
 	}); 
  	
 	
